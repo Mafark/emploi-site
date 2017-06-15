@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Emploi</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/foundation.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<svg class="bg-shape" viewBox="0 0 1000 700" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="22.174616%" y1="90.0562559%" x2="9.06491696%" y2="1.23979688%" id="linearGradient-1">
+            <stop stop-color="#6DBED8" offset="0%"></stop>
+            <stop stop-color="#3A50D8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="88.7118686%" x2="115.980514%" y2="88.7118697%" id="linearGradient-2">
+            <stop stop-color="#6DBED8" offset="0%"></stop>
+            <stop stop-color="#3A50D8" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-1" points="0 0 1280 0 1280 370 0 680"></polygon>
+        <polygon id="path-2" points="0 0 1280 0 1280 460 0 635"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix"
+                           in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Shape-2" stroke="none" fill="none">
+        <use fill="black" fill-opacity="1" filter="url(#filter-1)" xlink:href="#path-2"></use>
+        <use fill="url(#linearGradient-2)" fill-rule="evenodd" xlink:href="#path-2"></use>
+    </g>
+    <g id="Shape-1" stroke="none" fill="none">
+        <use fill="black" fill-opacity="1" filter="url(#filter-1)" xlink:href="#path-1"></use>
+        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-1"></use>
+    </g>
+</svg>
+<div id="no-js" class="small-12 columns"><h1>Для корректной работы сайта включите JavaScript в настройках браузера!</h1></div>
+<script>document.getElementById('no-js').classList.add('remove')</script>
+<div id="root"></div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>
