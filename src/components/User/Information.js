@@ -293,7 +293,7 @@ class Information extends Component {
                                                        onChange={this.changeContact.bind(this, contact, "addedContacts")}
                                                        disabled={!this.props.editing}/>
                                                 <i className="material-icons property-rm"
-                                                   onClick={this.deleteContact.bind(this, contact, "contacts")}>
+                                                   onClick={this.deleteContact.bind(this, contact, "addedContacts")}>
                                                     delete
                                                 </i>
                                             </div>
@@ -329,7 +329,7 @@ class Information extends Component {
                 <Tags ref={(child) => {this.tagsComponent = child}}
                       user={this.props.state.userData}
                       editing={this.props.editing}
-                      editClass={this.state.editClass}/>
+                      editClass={this.state.editClass}/>    
                 <Organisations user={this.props.state.userData}/>
             </div>
         )
