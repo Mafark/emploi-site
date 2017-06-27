@@ -4,9 +4,9 @@ import {createReducer} from "redux-act";
 export default createReducer({
     [userData.updateUser]: (state, payload) => {
         let newUserData = Object.assign({}, payload);
-        if (newUserData.avatar === null) {
+        if (newUserData.avatar === null || !newUserData.avatar) {
             newUserData.avatar = '/img/avatar.png';
-        } else if (newUserData.avatar !== null) {
+        } else if (newUserData.avatar !== null || newUserData.avatar) {
             newUserData.avatar = '//emploicore.lod-misis.ru/images/' + newUserData.avatar;
         }
         //DELL
