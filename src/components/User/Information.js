@@ -156,12 +156,6 @@ class Information extends Component {
   render() {
     return (
       <div className="wide block shadow-3 small-12 columns">
-        {
-          this.props.editing ?
-            <button onClick={this.saveChanges.bind(this)}>Сохранить изменения</button>
-            :
-            null
-        }
         <div className="small-12 medium-4 large-4 columns">
           <div className="img-mask auto-img circle border">
             <img alt="pic" className=""
@@ -178,22 +172,34 @@ class Information extends Component {
           </div>
           <div className="small-12 space-3 columns"></div>
           {
-            this.props.ProfileLoaded === true ?
+            this.props.ProfileLoaded === true && !this.props.editing ?
               <button className="small-12 small-bg columns" onClick={this.changeEditState.bind(this)}>
                 Редактировать</button>
               :
               null
           }
+          {
+            this.props.editing ?
+              <button onClick={
+                () => {
+                  this.saveChanges.call(this);
+                  this.changeEditState.call(this);
+                }
+              }>Сохранить изменения</button>
+              :
+              null
+          }
+
         </div>
         <div className="small-12 medium-8 large-8 columns no-padding">
           <div className="properties row">
             {
               this.props.editing ?
                 <div>
-                  <input type="text" className="small-12 medium-6 property-input active"
+                  <input type="text" className="small-12 medium-6 property-input active edit"
                     defaultValue={this.state.user.surname}
                     onChange={this.changeItem.bind(this, 'surname')} />
-                  <input type="text" className="small-12 medium-6 property-input active"
+                  <input type="text" className="small-12 medium-6 property-input active edit"
                     defaultValue={this.state.user.name}
                     onChange={this.changeItem.bind(this, 'name')} />
                 </div>
