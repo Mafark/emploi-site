@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import ajax from '../../common/ajaxRequests';
+import { getUserByID } from '../../common/ajaxRequests';
 import Information from './Information';
 import Portfolio from './Portfolio';
 
@@ -13,7 +13,7 @@ class UserPage extends Component {
     }
 
     componentWillMount() {
-        ajax.getUserByID(this.props.params.user).then((user) => {
+        getUserByID(this.props.params.user).then((user) => {
             if(!user || user === null){
                 throw new TypeError('User not found');
             }

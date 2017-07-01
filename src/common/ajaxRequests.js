@@ -2,8 +2,10 @@ import store from '../store'
 import 'whatwg-fetch'
 import { browserHistory } from 'react-router'
 import { userData, search } from '../actionCreators'
+import { correctImg } from './helpers';
 
-const site = '//emploicore.lod-misis.ru'
+export const site = '//emploicore.lod-misis.ru';
+export const imgUrl = '//emploicore.lod-misis.ru/images/';
 
 const profile = {
   id: 1,
@@ -78,17 +80,41 @@ const profile = {
   ]
 }
 
-const project = [
+const project =
   {
-    id: '1',
+    id: 1,
+    avatar: null,
+    leader: {
+      id: 79,
+      name: 'Вася',
+      surname: 'Пупкин'
+    },
     name: 'Emploi',
     description: 'Реализовать свои приобретенные навыки или найти нужного человека себе в команду, в этом вам поможет Emploi',
-    avatar: './img/logo.png',
     tags: ['Программирование', 'Веб-дизайн', 'Андроид'],
-    leader: 'Борис Вальдман',
-    leaderUrl: './profile'
+    leaderUrl: './profile',
+    team: [
+      {
+        id: 79,
+        name: "Гоша",
+        surname: "Ваниль",
+        profession: "Сиделка",
+        description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
+        tags: [
+          'Сижу', "Не тужу", 'Кайфую'
+        ]
+      }
+    ],
+    vacancies: [
+      {
+        profession: "Сиделка",
+        description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
+        tags: [
+          'Сижу', "Не тужу", 'Кайфую'
+        ]
+      }
+    ]
   }
-]
 
 export const getCurrentUser = () => {
   fetch(site + '/current/' + localStorage.getItem('token'), {
@@ -212,6 +238,31 @@ export const editTags = (token, tags) => {
     body: JSON.stringify(tags)
   }).then(function (response) {
     console.log(response)
+  })
+}
+
+export const getProject = (id) => {
+  //dell
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let res = Object.assign({}, project);
+      res.avatar = correctImg(res.avatar);
+      console.log(res);
+      resolve(res);
+    }, 1000);
+
+  });
+  //dell
+  return fetch(site + '/projects/' + id, {
+    method: 'GET'
+  }).then(function (response) {
+    if (response.status === 200) {
+      return response.json().then(function (res) {
+        res.avatar = correctImg(res.avatar);
+        console.log(res);
+        return res;
+      })
+    }
   })
 }
 

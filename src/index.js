@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import {Provider} from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
 import store from './store';
 import App from './components/App';
 import HomePage from './components/HomePage/HomePage';
@@ -17,21 +17,21 @@ import NotFound from './components/NotFound';
 // })
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path='/' component={App}>
-                <IndexRoute component={HomePage}/>
-                <Route path='confirm' component={ConfirmPage}>
-                    <Route path=':params'/>
-                </Route>
-                <Route path='projects' component={ProjectsSearcherPage}/>
-                <Route path='students' component={StudentsSearcherPage}/>
-                <Route path='users/:user' component={UserPage}/>
-                <Route path='profile' component={ProfilePage}/>
-                <Route path='project' component={ProjectPage}/>
-                <Route path='*' component={NotFound}/>
-            </Route>
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <IndexRoute component={HomePage} />
+        <Route path='confirm' component={ConfirmPage}>
+          <Route path=':params' />
+        </Route>
+        <Route path='projects' component={ProjectsSearcherPage} />
+        <Route path='students' component={StudentsSearcherPage} />
+        <Route path='users/:user' component={UserPage} />
+        <Route path='profile' component={ProfilePage} />
+        <Route path='projects/:project' component={ProjectPage} />
+        <Route path='*' component={NotFound} />
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 );
