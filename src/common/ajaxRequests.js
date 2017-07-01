@@ -96,9 +96,9 @@ export const getCurrentUser = () => {
   }).then(function (response) {
     if (response.status === 200) {
       response.json().then((res) => {
-        res.tags.push('Птички')
-        res.tags.push('Бабочки')
-        res.tags.push('Цветочки')
+        // res.tags.push('Птички')
+        // res.tags.push('Бабочки')
+        // res.tags.push('Цветочки')
         console.log(res)
         store.dispatch(userData.updateUser(res))
       })

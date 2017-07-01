@@ -76,6 +76,13 @@ class Tags extends Component {
         </div>
       )
     }
+    if (this.props.editing) {
+      this.addEmptyTag();
+    } else {
+      this.state.tags.indexOf('') !== -1 ? 
+        this.deleteTag('')
+      : null;
+    }
     return null;
   }
 }
