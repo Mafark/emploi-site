@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editUser, uploadFile, editTags } from "../../common/ajaxRequests";
+import { imgUrl, editUser, uploadFile, editTags } from "../../common/ajaxRequests";
 import Tags from "./Tags";
 import Organisations from "./Organizations";
 import { userData } from '../../actionCreators';
@@ -50,11 +50,11 @@ class Information extends Component {
         }
       } else {
         let newUserWithAvatar = Object.assign({}, this.state.user);
-        newUserWithAvatar.avatar = '//emploicore.lod-misis.ru/images/' + res;
+        newUserWithAvatar.avatar = imgUrl + res;
         console.log('state' + this.state.user.avatar)
         this.setState({
           user: newUserWithAvatar,
-          previewAvatar: '//emploicore.lod-misis.ru/images/' + res,
+          previewAvatar: imgUrl + res,
           avatarStatus: 'Аватар загружен'
         });
         console.log(newUserWithAvatar.avatar)
@@ -141,7 +141,7 @@ class Information extends Component {
       if (newUser.avatar === '/img/avatar.png') {
         newUser.avatar = null;
       } else {
-        newUser.avatar = newUser.avatar.split('//emploicore.lod-misis.ru/images/')[1];
+        newUser.avatar = newUser.avatar.split(imgUrl)[1];
       }
       console.log(newUser);
       editUser(localStorage.getItem("token"), newUser).then((res) => {

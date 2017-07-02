@@ -1,7 +1,9 @@
 import store from '../store';
 import { browserHistory } from 'react-router';
 import { userData } from '../actionCreators';
-import { imgUrl } from './ajaxRequests';
+import { site, imgUrl } from './ajaxRequests';
+
+export const defaultImg = '/img/avatar.png'
 
 export function logOut(e) {
   e.preventDefault();
