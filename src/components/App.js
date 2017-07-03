@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {getCurrentUser} from '../common/ajaxRequests';
 import {userData} from '../actionCreators';
 
+import '../common/validationRules';
 import Header from './Header';
 import Footer from './Footer';
 import Preloader from './Preloader';
