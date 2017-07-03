@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { uploadFile } from '../../common/ajaxRequests';
+import { imgUrl, uploadFile } from '../../common/ajaxRequests';
 import { defaultImg } from '../../common/helpers';
 
 class CreateProjectPage extends Component {
@@ -38,15 +38,13 @@ class CreateProjectPage extends Component {
           });
         }
       } else {
-        // let newUserWithAvatar = Object.assign({}, this.state.user);
-        // newUserWithAvatar.avatar = '//emploicore.lod-misis.ru/images/' + res;
-        // console.log('state' + this.state.user.avatar)
-        // this.setState({
-        //   user: newUserWithAvatar,
-        //   previewAvatar: '//emploicore.lod-misis.ru/images/' + res,
-        //   avatarStatus: 'Картинка загружена'
-        // });
-        // console.log(newUserWithAvatar.avatar)
+        let newProject = Object.assign({}, this.state.project);
+        newProject.avatar = imgUrl + res;
+        this.setState({
+          projects: newProject,
+          previewAvatar: imgUrl + res,
+          avatarStatus: 'Картинка загружена'
+        })
       }
     })
   }
@@ -55,7 +53,7 @@ class CreateProjectPage extends Component {
     if (true) {
       return (
         <div>
-          <div className="img-mask auto-img circle border">
+          <div style={{ width: '300px' }} className="img-mask auto-img circle border">
             <img alt="pic" className=""
               src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar} />
             <div className="img-upload">
@@ -63,6 +61,20 @@ class CreateProjectPage extends Component {
               <input type='file' onChange={this.uploadImage.bind(this)} />
             </div>
           </div>
+          leader id
+          <input type="text" />
+          name
+          <input type="text" />
+          description
+          <input type="text" />
+          теги через пробел
+          <input type="text" />
+          ВАКАНСИИ
+          профессия
+          <input type="text" />
+          описание
+          <input type="text" />
+          теги через пробел
           <input type="text" />
         </div>
       )
