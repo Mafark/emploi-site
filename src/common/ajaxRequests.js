@@ -442,20 +442,6 @@ export const getStudentsSearchPreview = () => {          // на пустую с
     tags: ['Программирование', 'Веб-дизайн', 'Заоза'],
     data: mas
   }
-  /// //////DELETE
-
-  /*fetch("http://lala.ru/users/search/preview?str=строка&tags=массив&config=jsonОбъект", {
-   method: "GET"
-   }).then(function (response) {
-   response.json().then((res) => {
-   if (res.status >= 200 && res.status < 300) {
-   return res;
-   }
-   })
-   }, function (error) {
-   // console.log(error)
-   }); */
-}
 
 export const getStudentsSearchDataByPage = () => {
   /// //////DELETE
