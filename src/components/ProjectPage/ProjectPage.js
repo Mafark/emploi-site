@@ -28,7 +28,7 @@ class ProfilePage extends Component {
           <div className="content row">
             <Information project={this.state.project} />
             <div className="space-4 small-12 columns" />
-            <Vacancies project={this.state.project} />
+            <Vacancies team={this.state.project.team} />
             <div className="space-4 small-12 columns" />
             <br />
           </div>
