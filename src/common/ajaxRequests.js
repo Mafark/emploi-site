@@ -99,7 +99,7 @@ const project =
           id: 79,
           name: "Гоша",
           surname: "Ваниль"
-        }
+        },
         profession: "Сиделка",
         description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
         tags: [
