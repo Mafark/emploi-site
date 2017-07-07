@@ -442,6 +442,7 @@ export const getStudentsSearchPreview = () => {          // на пустую с
     tags: ['Программирование', 'Веб-дизайн', 'Заоза'],
     data: mas
   }
+}
 
 export const getStudentsSearchDataByPage = () => {
   /// //////DELETE
