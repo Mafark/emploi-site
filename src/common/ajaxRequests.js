@@ -315,8 +315,8 @@ export const editProject = (id, project) => {
   })
 }
 
-export const deleteProject = (id, project) => {
-  return fetch(site + '/projects/' + id + '/delete/', {
+export const deleteProject = (projectID) => {
+  return fetch(site + '/projects/' + projectID + '/delete/', {
     method: 'POST',
     headers: {
       'token': localStorage.getItem('token')
