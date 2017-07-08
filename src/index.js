@@ -8,7 +8,7 @@ import HomePage from './components/HomePage/HomePage';
 import UserPage from './components/User/UserPage';
 import ProfilePage from './components/User/ProfilePage';
 import ProjectPage from './components/ProjectPage/ProjectPage';
-import CreateProjectPage from './components/ProjectPage/CreateProjectPage';
+import EditProjectPage from './components/ProjectPage/EditProjectPage';
 import ConfirmPage from './components/FormPage/ConfirmPage';
 import StudentsSearcherPage from './components/SearchPage/StudentsSearcher';
 import ProjectsSearcherPage from './components/SearchPage/ProjectsSearcher';
@@ -30,7 +30,8 @@ ReactDOM.render(
         <Route path='users/:user' component={UserPage} />
         <Route path='profile' component={ProfilePage} />
         <Route path='projects/:project' component={ProjectPage} />
-        <Route path='project/create' component={CreateProjectPage} />
+        <Route path='projects/:project/edit' mode='edit' component={EditProjectPage}/>
+        <Route path='project/create' mode='create' component={EditProjectPage} />
         <Route path='*' component={NotFound} />
       </Route>
     </Router>

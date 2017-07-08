@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Information from './Information';
 import Vacancies from './Vacancies';
 import { getProject } from '../../common/ajaxRequests';
@@ -37,6 +38,7 @@ class ProfilePage extends Component {
     if (this.state.project.id) {
       return (
         <div className="page row expanded">
+          <Link to={this.props.location.pathname + '/edit'} style={{ fontSize: '40px', color: 'red' }}>EDIT</Link>
           <div className="content row">
             <Information creator={this.state.creator} project={this.state.project} />
             <div className="space-4 small-12 columns" />
