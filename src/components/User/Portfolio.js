@@ -22,7 +22,7 @@ class Portfolio extends Component {
             <div className="space-2 small-12 columns" />
             <div className="block project shadow-1 small-12 columns row">
               <span>
-                <Link to={'/project/add'}>Добавить</Link>
+                <Link to={'/project/create'}>Добавить</Link>
               </span>
               {
                 this.props.portfolio.length !== 0 ?
