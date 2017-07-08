@@ -4,9 +4,6 @@ import { site } from '../../common/ajaxRequests';
 
 
 class Information extends Component {
-  lal() {
-    console.log(this.props.creator)
-  }
 
   render() {
     return (

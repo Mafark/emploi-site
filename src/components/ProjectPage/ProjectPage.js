@@ -7,6 +7,7 @@ import { getProject } from '../../common/ajaxRequests';
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
+    this.projectID = +this.props.params.project;
     this.state = {
       creator: false,
       project: {}
@@ -14,7 +15,7 @@ class ProfilePage extends Component {
   }
 
   componentWillMount() {
-    getProject(this.props.params.project).then((project) => {
+    getProject(this.projectID).then((project) => {
       if (!project || project === null) {
         throw new TypeError('Project not found');
       }
@@ -23,12 +24,12 @@ class ProfilePage extends Component {
   }
 
   render() {
-    if (this.props.state.userData.id === +this.props.routeParams.project && this.state.creator !== true) {
+    if (this.props.state.userData.id === this.projectID && this.state.creator !== true) {
       this.setState({
         creator: true
       })
     }
-    if (this.props.state.userData.id !== +this.props.routeParams.project && this.state.creator !== false) {
+    if (this.props.state.userData.id !== this.projectID && this.state.creator !== false) {
       this.setState({
         creator: false
       })
@@ -39,7 +40,7 @@ class ProfilePage extends Component {
           <div className="content row">
             <Information creator={this.state.creator} project={this.state.project} />
             <div className="space-4 small-12 columns" />
-            <Vacancies creator={this.state.creator} team={this.state.project.team} />
+            <Vacancies creator={this.state.creator} projectID={this.projectID} team={this.state.project.team} />
             <div className="space-4 small-12 columns" />
             <br />
           </div>
