@@ -56,35 +56,35 @@ class Units extends Component{
                             <h3>Студенческие организации </h3>
                         </div>
                         <div className="units small-12 columns">
-                            <a href="./project">
+                            <a href="./projects/79">
                                 <div className="unit small-12 columns">
                                     <img src="img/org1.jpg" alt="Лига разработчиков" className="small-img border" />
                                     <p>Лига разработчиков</p>
                                 </div>
                             </a>
                             <hr />
-                            <a href="./project">
+                            <a href="./projects/79">
                                 <div className="unit small-12 columns">
                                     <img src="img/org1.jpg" alt="Лига разработчиков" className="small-img border" />
                                     <p>Лига разработчиков</p>
                                 </div>
                             </a>
                             <hr />
-                            <a href="./project">
+                            <a href="./projects/79">
                                 <div className="unit small-12 columns">
                                     <img src="img/org1.jpg" alt="Лига разработчиков" className="small-img border" />
                                     <p>Лига разработчиков</p>
                                 </div>
                             </a>
                             <hr />
-                            <a href="./project">
+                            <a href="./projects/79">
                                 <div className="unit small-12 columns">
                                     <img src="img/org1.jpg" alt="Лига разработчиков" className="small-img border" />
                                     <p>Лига разработчиков</p>
                                 </div>
                             </a>
                             <hr />
-                            <a href="./project">
+                            <a href="./projects/79">
                                 <div className="unit small-12 columns">
                                     <img src="img/org1.jpg" alt="Лига разработчиков" className="small-img border" />
                                     <p>Лига разработчиков</p>
