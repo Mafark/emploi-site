@@ -30,7 +30,7 @@ ReactDOM.render(
         <Route path='users/:user' component={UserPage} />
         <Route path='profile' component={ProfilePage} />
         <Route path='projects/:project' component={ProjectPage} />
-        <Route path='project/add' component={CreateProjectPage} />
+        <Route path='project/create' component={CreateProjectPage} />
         <Route path='*' component={NotFound} />
       </Route>
     </Router>

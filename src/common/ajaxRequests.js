@@ -103,7 +103,7 @@ const project =
         profession: "Сиделка",
         description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
         tags: [
-          'Сижу', "Не тужу", 'Кайфую'
+          'Сижу', "Не тужу"
         ],
       },
       {
@@ -111,7 +111,7 @@ const project =
         profession: "Сиделка",
         description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
         tags: [
-          'Сижу', "Не тужу", 'Кайфую'
+          'Сижу', "Не", 'тужу'
         ]
       }
     ]
@@ -273,7 +273,7 @@ export const getProject = (id) => {
   })
 }
 
-export const addProject = (project) => {
+export const createProject = (project) => {
   /*
     body: {
       avatar,

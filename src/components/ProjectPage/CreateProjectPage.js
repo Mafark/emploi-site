@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { imgUrl, uploadFile } from '../../common/ajaxRequests';
+import { imgUrl, uploadFile, createProject as addProject } from '../../common/ajaxRequests';
 import { defaultImg } from '../../common/helpers';
 import Validation from 'react-validation';
 
@@ -19,10 +19,6 @@ class CreateProjectPage extends Component {
 
   componentWillMount() {
     this.props.user.id ? null : browserHistory.push('/');
-  }
-
-  lal(e) {
-    e.preventDefault();
   }
 
   uploadImage(e) {
@@ -44,7 +40,7 @@ class CreateProjectPage extends Component {
         }
       } else {
         let newProject = Object.assign({}, this.state.project);
-        newProject.avatar = imgUrl + res;
+        newProject.avatar = res;
         this.setState({
           projects: newProject,
           previewAvatar: imgUrl + res,
@@ -54,11 +50,28 @@ class CreateProjectPage extends Component {
     })
   }
 
+  createProject(e) {
+    e.preventDefault();
+    let tags = [];
+    tags = this.form.components.tags.state.value.split(',').map((tag) => {
+      return tag.trim();
+    });
+    let newProject = {
+      avatar: this.state.project.avatar,
+      name: this.form.components.name.state.value,
+      description: this.form.components.description.state.value,
+      tags: tags
+    }
+    console.log(newProject)
+    addProject(newProject);
+  }
+
+
   render() {
     if (true) {
       return (
         <div>
-          <Validation.components.Form>
+          <Validation.components.Form ref={form => { this.form = form }}>
             <div style={{ width: '300px' }} className="img-mask auto-img circle border">
               <img alt="pic" className=""
                 src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar} />
@@ -68,7 +81,7 @@ class CreateProjectPage extends Component {
               </div>
             </div>
             <div>
-              <Validation.components.Input className="small-12 columns end" value='123'
+              <Validation.components.Input className="small-12 columns end" value=''
                 placeholder="Название проекта"
                 name="name" validations={['isStr', 'required']} />
             </div>
@@ -76,19 +89,9 @@ class CreateProjectPage extends Component {
               placeholder="Описание проекта"
               name="description" validations={[]} />
             <Validation.components.Textarea className="small-12 columns end" value=''
-              placeholder="Ваши теги (через пробел). Например: программирование дизайн"
-              name="tags" validations={['isStr']} />
-            <h2>ВАКАНСИИ</h2>
-            <Validation.components.Input className="small-12 columns end" value=''
-              placeholder="Название профессии"
-              name="v-name" validations={['isStr']} />
-            <Validation.components.Textarea className="small-12 columns end" value=''
-              placeholder="Описание вакансии"
-              name="v-description" validations={[]} />
-            <Validation.components.Textarea className="small-12 columns end" value=''
-              placeholder="Ваши теги (через пробел). Например: программирование дизайн"
-              name="v-tags" validations={['isStr']} />
-            <Validation.components.Button type="submit" onClick={this.lal.bind(this)}
+              placeholder="Ваши теги (через запятую). Например: программирование, дизайн"
+              name="tags" validations={[]} />
+            <Validation.components.Button type="submit" onClick={this.createProject.bind(this)}
               className="donation-form-btn pointer m-b-2 small-12 columns">
               submite
             </Validation.components.Button>
