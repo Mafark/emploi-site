@@ -8,6 +8,7 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      creator: false,
       project: {}
     };
   }
@@ -22,13 +23,23 @@ class ProfilePage extends Component {
   }
 
   render() {
+    if (this.props.state.userData.id === +this.props.routeParams.project && this.state.creator !== true) {
+      this.setState({
+        creator: true
+      })
+    }
+    if (this.props.state.userData.id !== +this.props.routeParams.project && this.state.creator !== false) {
+      this.setState({
+        creator: false
+      })
+    }
     if (this.state.project.id) {
       return (
         <div className="page row expanded">
           <div className="content row">
-            <Information project={this.state.project} />
+            <Information creator={this.state.creator} project={this.state.project} />
             <div className="space-4 small-12 columns" />
-            <Vacancies team={this.state.project.team} />
+            <Vacancies creator={this.state.creator} team={this.state.project.team} />
             <div className="space-4 small-12 columns" />
             <br />
           </div>
