@@ -29,7 +29,7 @@ class Vacancies extends Component {
                             this.props.creator ?
                               <div>
                                 <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
-                                <button style={{ color: 'red' }}>EDIT VACANCY</button>
+                                <Link to='' style={{ color: 'red' }}>EDIT VACANCY</Link>
                               </div>
                               :
                               null
@@ -61,7 +61,7 @@ class Vacancies extends Component {
                             this.props.creator ?
                               <div>
                                 <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
-                                <button style={{ color: 'red' }}>EDIT VACANCY</button>
+                                <Link to='' style={{ color: 'red' }}>EDIT VACANCY</Link>
                               </div>
                               :
                               null

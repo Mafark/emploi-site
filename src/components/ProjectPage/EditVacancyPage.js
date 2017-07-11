@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { imgUrl, uploadFile, getProject, createProject as crProject, editProject as edProject } from '../../common/ajaxRequests';
+import { imgUrl, uploadFile, getProject, createProject as addProject } from '../../common/ajaxRequests';
 import { defaultImg } from '../../common/helpers';
 import Validation from 'react-validation';
 
@@ -10,59 +10,21 @@ class EditProjectPage extends Component {
     super(props);
     this.projectID = +this.props.params.project || '';
     this.state = {
-      imgStatus: 'Загрузить аватар',
-      previewAvatar: null,
-      project: {
-        avatar: null
-      }
-    }
-  }
+      vacancy: {}
+    };
+  };
 
   componentWillMount() {
     this.props.user.id ? null : browserHistory.push('/');
-    if (this.props.route.mode !== 'create') {
-      getProject(this.projectID).then((project) => {
-        if (!project || project === null) {
-          throw new TypeError('Project not found');
-        }
-        this.setState({
-          project: project,
-          previewAvatar: project.avatar
-        });
-      })
-    }
-  }
-
-  uploadImage(e) {
-    this.setState({
-      imgStatus: 'Загрузка картинки'
-    });
-    let file = new FormData();
-    file.append('Content', e.target.files[0]);
-    uploadFile(file).then((res) => {
-      if (res.status) {
-        if (res.status === 406) {
-          this.setState({
-            imgStatus: 'Разрешенные форматы: png, jpg, jpeg'
-          });
-        } else {
-          this.setState({
-            imgStatus: `Неизвестная ошибка: ${res.status}`
-          });
-        }
-      } else {
-        let newProject = Object.assign({}, this.state.project);
-        newProject.avatar = res;
-        this.setState({
-          projects: newProject,
-          previewAvatar: imgUrl + res,
-          avatarStatus: 'Картинка загружена'
-        })
-      }
+    getProject(this.projectID).then((vacancy) => {
+      this.setState({
+        vacancy: vacancy
+      });
     })
   }
 
-  getNewProject() {
+  createProject(e) {
+    e.preventDefault();
     let tags = [];
     tags = this.form.components.tags.state.value.split(',').map((tag) => {
       return tag.trim();
@@ -74,22 +36,12 @@ class EditProjectPage extends Component {
       tags: tags
     }
     console.log(newProject)
-    return newProject;
-  }
-
-  createProject(e) {
-    e.preventDefault();
-    crProject(this.getNewProject());
-  }
-
-  editProject(e) {
-    e.preventDefault();
-    edProject(this.projectID, this.getNewProject());
+    addProject(newProject);
   }
 
 
   render() {
-    if (this.props.route.mode === 'create' || (this.props.route.mode !== 'create' && this.state.project.id)) {
+    if (this.state.vacancy.id) {
       return (
         <div>
           <Validation.components.Form ref={form => { this.form = form }}>
@@ -120,8 +72,7 @@ class EditProjectPage extends Component {
                 this.props.route.mode === 'create' ?
                   this.createProject.bind(this)
                   :
-                  this.editProject.bind(this)
-              }
+                  null}
               className="donation-form-btn pointer m-b-2 small-12 columns">
               submite
             </Validation.components.Button>
