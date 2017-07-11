@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { imgUrl, uploadFile, getProject, createProject as crProject, editProject as edProject } from '../../common/ajaxRequests';
+import { imgUrl, uploadFile, getProject, createProject, editProject } from '../../common/ajaxRequests';
 import { defaultImg } from '../../common/helpers';
 import Validation from 'react-validation';
 
@@ -79,12 +79,12 @@ class EditProjectPage extends Component {
 
   createProject(e) {
     e.preventDefault();
-    crProject(this.getNewProject());
+    createProject(this.getNewProject());
   }
 
   editProject(e) {
     e.preventDefault();
-    edProject(this.projectID, this.getNewProject());
+    editProject(this.projectID, this.getNewProject());
   }
 
 

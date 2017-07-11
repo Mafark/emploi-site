@@ -84,6 +84,9 @@ class Vacancies extends Component {
                     )
                   })
                 }
+                {
+                  this.props.creator ? <Link to='' style={{ color: 'red' }}>ADD VACANCY</Link> : null
+                }
               </span>
               :
               null

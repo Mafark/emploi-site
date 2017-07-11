@@ -33,7 +33,8 @@ ReactDOM.render(
         <Route path='projects/:project' component={ProjectPage} />
         <Route path='projects/:project/edit' mode='edit' component={EditProjectPage} />
         <Route path='project/create' mode='create' component={EditProjectPage} />
-        <Route path='projects/:project/vacancies/:vacancy/edit' component={EditVacancyPage}/>
+        <Route path='projects/:project/vacancy/:vacancy/edit' mode='edit' component={EditVacancyPage} />
+        <Route path='projects/:project/vacancy/create' mode='create' component={EditVacancyPage}/>
         <Route path='*' component={NotFound} />
       </Route>
     </Router>

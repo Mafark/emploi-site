@@ -117,6 +117,15 @@ const project =
     ]
   }
 
+const vacancy = {
+  id: 1,
+  profession: "Сиделка",
+  description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
+  tags: [
+    'Сижу', "Не тужу"
+  ]
+}
+
 export const getCurrentUser = () => {
   fetch(site + '/current/' + localStorage.getItem('token'), {
     method: 'GET'
@@ -335,7 +344,25 @@ export const deleteProject = (projectID) => {
 
 
 /*Vacancies*/
-export const addVacancy = (projectID, vacancy) => {
+export const getVacancy = (projectID, vacancyID) => {
+  //dell
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let res = Object.assign({}, vacancy);
+      resolve(res);
+    }, 1000);
+  });
+  //dell
+  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID, {
+    method: 'GET'
+  }).then(function (response) {
+    if (response.status === 200) {
+      return response.json();
+    }
+  })
+}
+
+export const createVacancy = (projectID, vacancy) => {
   /*
     body: {
       profession,
