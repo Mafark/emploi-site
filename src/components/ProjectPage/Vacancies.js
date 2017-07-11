@@ -3,12 +3,17 @@ import { Link } from 'react-router';
 import { site, deleteVacancy as delVacancy, unassignToVacancy as delMember } from '../../common/ajaxRequests';
 
 class Vacancies extends Component {
+  constructor(props) {
+    super(props);
+    this.projectID = this.props.projectID;
+  }
+
   deleteVacancy(vacancyID) {
-    delVacancy(this.props.projectID, vacancyID);
+    delVacancy(this.projectID, vacancyID);
   }
 
   deleteMember(vacancyID) {
-    delMember(this.props.projectID, vacancyID);
+    delMember(this.projectID, vacancyID);
   }
 
   render() {
@@ -29,7 +34,7 @@ class Vacancies extends Component {
                             this.props.creator ?
                               <div>
                                 <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
-                                <Link to='' style={{ color: 'red' }}>EDIT VACANCY</Link>
+                                <Link to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'} style={{ color: 'red' }}>EDIT VACANCY</Link>
                               </div>
                               :
                               null
@@ -61,7 +66,7 @@ class Vacancies extends Component {
                             this.props.creator ?
                               <div>
                                 <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
-                                <Link to='' style={{ color: 'red' }}>EDIT VACANCY</Link>
+                                <Link to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'} style={{ color: 'red' }}>EDIT VACANCY</Link>
                               </div>
                               :
                               null
@@ -85,7 +90,7 @@ class Vacancies extends Component {
                   })
                 }
                 {
-                  this.props.creator ? <Link to='' style={{ color: 'red' }}>ADD VACANCY</Link> : null
+                  this.props.creator ? <Link to={'/projects/' + this.projectID + '/vacancy/create'} style={{ color: 'red' }}>ADD VACANCY</Link> : null
                 }
               </span>
               :
