@@ -46,7 +46,7 @@ class ProfilePage extends Component {
             this.state.creator ?
               <div>
                 <Link to={this.props.location.pathname + '/edit'} style={{ fontSize: '40px', color: 'red' }}>EDIT</Link>
-                <div onClick={this.deleteProject.bind(this)} style={{ fontSize: '40px', color: 'red' }}>DELETE VACANCY</div>
+                <div onClick={this.deleteProject.bind(this)} style={{ fontSize: '40px', color: 'red' }}>DELETE PROJECT</div>
               </div>
               :
               null

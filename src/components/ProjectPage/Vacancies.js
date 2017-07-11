@@ -27,7 +27,10 @@ class Vacancies extends Component {
                         <div key={index} className="block project shadow-1 small-12 columns row">
                           {
                             this.props.creator ?
-                              <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
+                              <div>
+                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
+                                <button style={{ color: 'red' }}>EDIT VACANCY</button>
+                              </div>
                               :
                               null
                           }
@@ -56,7 +59,10 @@ class Vacancies extends Component {
                         <div key={index} className="block project shadow-1 small-12 columns row border-dashed transparent no-shadow">
                           {
                             this.props.creator ?
-                              <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
+                              <div>
+                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
+                                <button style={{ color: 'red' }}>EDIT VACANCY</button>
+                              </div>
                               :
                               null
                           }

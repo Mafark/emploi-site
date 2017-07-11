@@ -183,10 +183,11 @@ export const preRegistration = (mail, pass) => {
 }
 
 export const editUser = (token, userData) => {
-  return fetch(site + '/users/' + token, {
+  return fetch(site + '/users/', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'token': token
     },
     body: JSON.stringify(userData)
   }).then(function (response) {
@@ -231,10 +232,11 @@ export const uploadFile = (file) => {
 }
 
 export const editTags = (token, tags) => {
-  return fetch(site + '/users/tags/' + token, {
+  return fetch(site + '/users/tags/', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      "token": token
     },
     body: JSON.stringify(tags)
   }).then(function (response) {
@@ -353,7 +355,7 @@ export const addVacancy = (projectID, vacancy) => {
   })
 }
 
-export const editVacancy = (projectID, vacancy) => {
+export const editVacancy = (projectID, vacancyID, vacancy) => {
   /*
   body: {
     profession,
@@ -361,7 +363,7 @@ export const editVacancy = (projectID, vacancy) => {
     tags[]
   }
   */
-  return fetch(site + '/projects/' + projectID + '/vacancies/', {
+  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID, {
     method: 'PUT',
     headers: {
       'token': localStorage.getItem('token'),
