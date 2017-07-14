@@ -29,17 +29,17 @@ class ProfilePage extends Component {
   }
 
   render() {
-    if (this.props.state.userData.id === this.projectID && this.state.creator !== true) {
-      this.setState({
-        creator: true
-      })
-    }
-    if (this.props.state.userData.id !== this.projectID && this.state.creator !== false) {
-      this.setState({
-        creator: false
-      })
-    }
     if (this.state.project.id) {
+      if (this.props.state.userData.id === this.state.project.leader.id && this.state.creator !== true) {
+        this.setState({
+          creator: true
+        })
+      }
+      if (this.props.state.userData.id !== this.state.project.leader.id && this.state.creator !== false) {
+        this.setState({
+          creator: false
+        })
+      }
       return (
         <div className="page row expanded">
           {
