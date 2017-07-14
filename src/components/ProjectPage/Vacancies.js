@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { site, deleteVacancy as delVacancy, unassignToVacancy as delMember } from '../../common/ajaxRequests';
+import { site, deleteVacancy as delVacancy, unassignToVacancy as delMember, getVacancyLink, applyToVacancy } from '../../common/ajaxRequests';
 
 class Vacancies extends Component {
   constructor(props) {
     super(props);
     this.projectID = this.props.projectID;
+    this.state = {
+      vacancyLink: ''
+    }
   }
 
   deleteVacancy(vacancyID) {
@@ -14,6 +17,16 @@ class Vacancies extends Component {
 
   deleteMember(vacancyID) {
     delMember(this.projectID, vacancyID);
+  }
+
+  generateLink(vacancyID) {
+    this.setState({
+      vacancyLink: getVacancyLink(this.projectID, vacancyID).link
+    })
+  }
+
+  applyToVacancy(vacancyID) {
+    applyToVacancy(this.projectID, vacancyID);
   }
 
   render() {
@@ -73,7 +86,16 @@ class Vacancies extends Component {
                           }
                           <div className="small-12 columns">
                             <h2 className="small-12 medium-6 nowrap no-padding columns">{unit.profession}</h2>
-                            <a href="#" className="small-12 medium-6 nowrap no-padding columns">Нажмите чтобы занять место</a>
+                            <a href="#" onClick={this.applyToVacancy.bind(this, unit.id)} className="small-12 medium-6 nowrap no-padding columns">Нажмите чтобы занять место</a>
+                            {
+                              this.props.creator ?
+                                <div>
+                                  <button style={{ color: 'red' }} onClick={this.generateLink.bind(this, unit.id)}>Сгенерировать ссылку</button>
+                                  <input ref={(vacancyLink) => (this.vacancyLink = vacancyLink)} value={this.state.applyToVacancy} type="text" />
+                                </div>
+                                :
+                                null
+                            }
                           </div>
                           <div className="small-12 columns">
                             <p>{unit.description}</p>

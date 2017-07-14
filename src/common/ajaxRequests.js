@@ -439,6 +439,34 @@ export const unassignToVacancy = (projectID, vacancyID) => {
   })
 }
 
+export const getVacancyLink = (projectID, vacancyID) => {
+  return {link : 'asdnasjdnasd'}
+  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/link/', {
+    method: 'GET',
+    headers: {
+      'token': localStorage.getItem('token')
+    }
+  }).then(function (response) {
+    console.log(response);
+    if (response.status === 200) {
+      return response.json();
+    }
+  })
+}
+
+export const applyToVacancy = (projectID, vacancyID) => {
+  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/apply', {
+    method: 'POST',
+    headers: {
+      'token': localStorage.getItem('token')
+    }
+  }).then(function (response) {
+    console.log(response);
+  })
+}
+
+
+
 
 
 
