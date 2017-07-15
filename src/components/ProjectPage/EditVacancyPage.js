@@ -42,11 +42,13 @@ class EditProjectPage extends Component {
   createVacancy(e) {
     e.preventDefault();
     createVacancy(this.projectID, this.getNewVacancy());
+    browserHistory.push('/projects/' + this.projectID)
   }
 
   editVacancy(e) {
     e.preventDefault();
     editVacancy(this.projectID, this.vacancyID, this.getNewVacancy());
+    browserHistory.push('/projects/' + this.projectID)
   }
 
   render() {

@@ -41,7 +41,7 @@ class Vacancies extends Component {
                 {
                   this.props.team.map((unit, index) => {
                     return (
-                      unit.member !== undefined ?
+                      unit.member ?
                         <div key={index} className="block project shadow-1 small-12 columns row">
                           {
                             this.props.creator ?

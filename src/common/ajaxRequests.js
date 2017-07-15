@@ -296,7 +296,7 @@ export const createProject = (project) => {
   return fetch(site + '/projects/', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token'),
+      'Authorization': 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(project)
@@ -317,7 +317,7 @@ export const editProject = (id, project) => {
   return fetch(site + '/projects/' + id, {
     method: 'PUT',
     headers: {
-      'token': localStorage.getItem('token'),
+      'Authorization': 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(project)
@@ -330,7 +330,7 @@ export const deleteProject = (projectID) => {
   return fetch(site + '/projects/' + projectID + '/delete/', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token')
+      'Authorization': 'Basic ' + localStorage.getItem('token'),
     }
   }).then(function (response) {
     console.log(response);
@@ -346,12 +346,12 @@ export const deleteProject = (projectID) => {
 /*Vacancies*/
 export const getVacancy = (projectID, vacancyID) => {
   //dell
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let res = Object.assign({}, vacancy);
-      resolve(res);
-    }, 1000);
-  });
+  // return new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     let res = Object.assign({}, vacancy);
+  //     resolve(res);
+  //   }, 1000);
+  // });
   //dell
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID, {
     method: 'GET'
@@ -373,7 +373,7 @@ export const createVacancy = (projectID, vacancy) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token'),
+      'Authorization': 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(vacancy)
@@ -393,7 +393,7 @@ export const editVacancy = (projectID, vacancyID, vacancy) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID, {
     method: 'PUT',
     headers: {
-      'token': localStorage.getItem('token'),
+      'Authorization': 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(vacancy)
@@ -406,7 +406,7 @@ export const deleteVacancy = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/delete/', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token')
+      'Authorization': 'Basic ' + localStorage.getItem('token')
     }
   }).then(function (response) {
     console.log(response);
@@ -417,7 +417,7 @@ export const assignToVacancy = (projectID, vacancyID, userID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/assign/', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token'),
+      'Authorization': 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -432,7 +432,7 @@ export const unassignToVacancy = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/unassign/', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token')
+      'Authorization': 'Basic ' + localStorage.getItem('token')
     }
   }).then(function (response) {
     console.log(response);
@@ -444,7 +444,7 @@ export const getVacancyLink = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/link/', {
     method: 'GET',
     headers: {
-      'token': localStorage.getItem('token')
+      'Authorization': 'Basic ' + localStorage.getItem('token')
     }
   }).then(function (response) {
     console.log(response);
@@ -458,7 +458,7 @@ export const applyToVacancy = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/apply', {
     method: 'POST',
     headers: {
-      'token': localStorage.getItem('token')
+      'Authorization': 'Basic ' + localStorage.getItem('token')
     }
   }).then(function (response) {
     console.log(response);

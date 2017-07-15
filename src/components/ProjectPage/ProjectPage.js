@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import Information from './Information';
 import Vacancies from './Vacancies';
 import { getProject, deleteProject as delProject } from '../../common/ajaxRequests';
@@ -26,6 +26,7 @@ class ProfilePage extends Component {
 
   deleteProject() {
     delProject(this.projectID);
+    browserHistory.push('/');
   }
 
   render() {
@@ -46,7 +47,7 @@ class ProfilePage extends Component {
             this.state.creator ?
               <div>
                 <Link to={this.props.location.pathname + '/edit'} style={{ fontSize: '40px', color: 'red' }}>EDIT</Link>
-                <div onClick={this.deleteProject.bind(this)} style={{ fontSize: '40px', color: 'red' }}>DELETE PROJECT</div>
+                <button onClick={this.deleteProject.bind(this)} style={{ fontSize: '40px', color: 'red' }}>DELETE PROJECT</button>
               </div>
               :
               null
