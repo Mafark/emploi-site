@@ -45,7 +45,7 @@ class Tags extends Component {
   }
 
   render() {
-    if (this.state.tags.length && this.state.tags.length !== 0) {
+    if (this.state.tags && this.state.tags.length !== 0) {
       return (
         <div>
           <hr />
@@ -79,7 +79,7 @@ class Tags extends Component {
     if (this.props.editing) {
       this.addEmptyTag();
     } else {
-      this.state.tags.indexOf('') !== -1 ? 
+      this.state.tags && this.state.tags.indexOf('') !== -1 ? 
         this.deleteTag('')
       : null;
     }
