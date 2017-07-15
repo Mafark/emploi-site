@@ -80,11 +80,13 @@ class EditProjectPage extends Component {
   createProject(e) {
     e.preventDefault();
     createProject(this.getNewProject());
+    browserHistory.push('/');
   }
 
   editProject(e) {
     e.preventDefault();
     editProject(this.projectID, this.getNewProject());
+    browserHistory.push('/');
   }
 
 

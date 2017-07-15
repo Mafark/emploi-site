@@ -45,7 +45,7 @@ class Tags extends Component {
   }
 
   render() {
-    if (this.state.tags.length !== 0) {
+    if (this.state.tags.length && this.state.tags.length !== 0) {
       return (
         <div>
           <hr />

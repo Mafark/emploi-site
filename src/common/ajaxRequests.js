@@ -262,14 +262,14 @@ export const editTags = (token, tags) => {
 /*Projects*/
 export const getProject = (id) => {
   //dell
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let res = Object.assign({}, project);
-      res.avatar = correctImg(res.avatar);
-      console.log(res);
-      resolve(res);
-    }, 1000);
-  });
+  // return new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     let res = Object.assign({}, project);
+  //     res.avatar = correctImg(res.avatar);
+  //     console.log(res);
+  //     resolve(res);
+  //   }, 1000);
+  // });
   //dell
   return fetch(site + '/projects/' + id, {
     method: 'GET'
