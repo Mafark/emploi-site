@@ -39,6 +39,22 @@ class ProfilePage extends Component {
     })
   }
 
+  deleteVacancy(vacancy) {
+    let newProject = Object.assign({}, this.state.project)
+    newProject.team.splice(newProject.team.indexOf(vacancy), 1)
+    this.setState({
+      project: newProject
+    })
+  }
+
+  deleteMember(vacancyID, member) {
+    let newProject = Object.assign({}, this.state.project)
+    newProject.team[vacancyID].member = null;
+    this.setState({
+      project: newProject
+    })
+  }
+
   render() {
     if (this.state.project.id) {
       if (this.props.state.userData.id === this.state.project.leader.id && this.state.creator !== true) {
@@ -68,7 +84,12 @@ class ProfilePage extends Component {
           <div className="content row">
             <Information creator={this.state.creator} project={this.state.project} />
             <div className="space-4 small-12 columns" />
-            <Vacancies creator={this.state.creator} projectID={this.projectID} team={this.state.project.team} />
+            <Vacancies creator={this.state.creator}
+              projectID={this.projectID}
+              team={this.state.project.team}
+              deleteVacancy={this.deleteVacancy.bind(this)}
+              deleteMember={this.deleteMember.bind(this)}
+            />
             <div className="space-4 small-12 columns" />
             <br />
           </div>

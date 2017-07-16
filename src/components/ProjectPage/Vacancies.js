@@ -12,12 +12,14 @@ class Vacancies extends Component {
     }
   }
 
-  deleteVacancy(vacancyID) {
-    delVacancy(this.projectID, vacancyID);
+  deleteVacancy(vacancy) {
+    this.props.deleteVacancy(vacancy);
+    delVacancy(this.projectID, vacancy.id);
   }
 
-  deleteMember(vacancyID) {
-    delMember(this.projectID, vacancyID);
+  deleteMember(vacancy) {
+    this.props.deleteMember(vacancy.id)
+    delMember(this.projectID, vacancy.id);
   }
 
   generateLink(vacancyID) {
@@ -60,7 +62,7 @@ class Vacancies extends Component {
                           {
                             this.props.creator ?
                               <div>
-                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
+                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>DELETE VACANCY</button>
                                 <Link to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'} style={{ color: 'red' }}>EDIT VACANCY</Link>
                               </div>
                               :
@@ -71,7 +73,7 @@ class Vacancies extends Component {
                             <Link to={site + '/users/' + unit.member.id} className="small-12 medium-6 nowrap no-padding columns">{unit.member.name + ' ' + unit.member.surname}</Link>
                             {
                               this.props.creator ?
-                                <div style={{ color: 'red' }} onClick={this.deleteMember.bind(this, unit.id)}>delete member</div>
+                                <div style={{ color: 'red' }} onClick={this.deleteMember.bind(this, unit)}>delete member</div>
                                 :
                                 null
                             }
@@ -92,7 +94,7 @@ class Vacancies extends Component {
                           {
                             this.props.creator ?
                               <div>
-                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit.id)}>DELETE VACANCY</button>
+                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>DELETE VACANCY</button>
                                 <Link to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'} style={{ color: 'red' }}>EDIT VACANCY</Link>
                               </div>
                               :
