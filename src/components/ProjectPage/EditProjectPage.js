@@ -14,7 +14,8 @@ class EditProjectPage extends Component {
       previewAvatar: null,
       project: {
         avatar: null
-      }
+      },
+      preloader: false
     }
   }
 
@@ -79,14 +80,26 @@ class EditProjectPage extends Component {
 
   createProject(e) {
     e.preventDefault();
-    createProject(this.getNewProject());
-    browserHistory.push('/');
+    this.preloader(true);
+    createProject(this.getNewProject()).then(response => {
+      this.preloader(false);
+      browserHistory.push('/projects/' + this.projectID)
+    });
   }
 
   editProject(e) {
     e.preventDefault();
-    editProject(this.projectID, this.getNewProject());
-    browserHistory.push('/');
+    this.preloader(true);
+    editProject(this.projectID, this.getNewProject()).then(response => {
+      this.preloader(false);
+      browserHistory.push('/projects/' + this.projectID)
+    });
+  }
+
+  preloader(value) {
+    this.setState({
+      preloader: value
+    })
   }
 
 
@@ -94,6 +107,9 @@ class EditProjectPage extends Component {
     if (this.props.route.mode === 'create' || (this.props.route.mode !== 'create' && this.state.project.id)) {
       return (
         <div>
+          {
+            this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null
+          }
           <Validation.components.Form ref={form => { this.form = form }}>
             <div style={{ width: '300px' }} className="img-mask auto-img circle border">
               <img alt="pic" className=""

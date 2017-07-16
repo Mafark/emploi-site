@@ -301,6 +301,7 @@ export const createProject = (project) => {
     },
     body: JSON.stringify(project)
   }).then(function (response) {
+    return response;
     console.log(response);
   })
 }
@@ -322,6 +323,7 @@ export const editProject = (id, project) => {
     },
     body: JSON.stringify(project)
   }).then(function (response) {
+    return response;
     console.log(response);
   })
 }
@@ -378,6 +380,7 @@ export const createVacancy = (projectID, vacancy) => {
     },
     body: JSON.stringify(vacancy)
   }).then(function (response) {
+    return response;
     console.log(response);
   })
 }
@@ -398,6 +401,7 @@ export const editVacancy = (projectID, vacancyID, vacancy) => {
     },
     body: JSON.stringify(vacancy)
   }).then(function (response) {
+    return response;
     console.log(response);
   })
 }
@@ -440,7 +444,7 @@ export const unassignToVacancy = (projectID, vacancyID) => {
 }
 
 export const getVacancyLink = (projectID, vacancyID) => {
-  return {link : 'asdnasjdnasd'}
+  return { link: 'asdnasjdnasd' }
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/link/', {
     method: 'GET',
     headers: {

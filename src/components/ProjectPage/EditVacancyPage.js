@@ -11,7 +11,8 @@ class EditProjectPage extends Component {
     this.projectID = +this.props.params.project || '';
     this.vacancyID = +this.props.params.vacancy || ''
     this.state = {
-      vacancy: {}
+      vacancy: {},
+      preloader: false
     };
   };
 
@@ -41,20 +42,35 @@ class EditProjectPage extends Component {
 
   createVacancy(e) {
     e.preventDefault();
-    createVacancy(this.projectID, this.getNewVacancy());
-    browserHistory.push('/projects/' + this.projectID)
+    this.preloader(true);
+    createVacancy(this.projectID, this.getNewVacancy()).then(response => {
+      this.preloader(false);
+      browserHistory.push('/projects/' + this.projectID)
+    });
   }
 
   editVacancy(e) {
     e.preventDefault();
-    editVacancy(this.projectID, this.vacancyID, this.getNewVacancy());
-    browserHistory.push('/projects/' + this.projectID)
+    this.preloader(true);
+    editVacancy(this.projectID, this.vacancyID, this.getNewVacancy()).then(response => {
+      this.preloader(false);
+      browserHistory.push('/projects/' + this.projectID)
+    });
+  }
+
+  preloader(value) {
+    this.setState({
+      preloader: value
+    })
   }
 
   render() {
     if (this.props.route.mode === 'create' || (this.props.route.mode !== 'create' && this.state.vacancy.id)) {
       return (
         <div>
+          {
+            this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null
+          }
           <Validation.components.Form ref={form => { this.form = form }}>
             <div>
               <Validation.components.Input className="small-12 columns end"
