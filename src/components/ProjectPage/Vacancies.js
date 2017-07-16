@@ -7,7 +7,8 @@ class Vacancies extends Component {
     super(props);
     this.projectID = this.props.projectID;
     this.state = {
-      vacancyLink: ''
+      vacancyLink: '',
+      preloader: false
     }
   }
 
@@ -20,13 +21,26 @@ class Vacancies extends Component {
   }
 
   generateLink(vacancyID) {
-    this.setState({
-      vacancyLink: getVacancyLink(this.projectID, vacancyID).link
+    this.preloader(true);
+    getVacancyLink(this.projectID, vacancyID).then(response => {
+      this.preloader(false);
+      if (response.status === 200) {
+        response.json().then(function (link) {
+          this.setState({
+            vacancyLink: link
+          })
+        });
+      }
     })
   }
 
   applyToVacancy(vacancyID) {
-    applyToVacancy(this.projectID, vacancyID);
+  }
+
+  preloader(value) {
+    this.setState({
+      preloader: value
+    })
   }
 
   render() {
@@ -90,6 +104,9 @@ class Vacancies extends Component {
                             {
                               this.props.creator ?
                                 <div>
+                                  {
+                                    this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null
+                                  }
                                   <button style={{ color: 'red' }} onClick={this.generateLink.bind(this, unit.id)}>Сгенерировать ссылку</button>
                                   <input ref={(vacancyLink) => (this.vacancyLink = vacancyLink)} value={this.state.applyToVacancy} type="text" />
                                 </div>

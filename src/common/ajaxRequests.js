@@ -335,6 +335,7 @@ export const deleteProject = (projectID) => {
       'Authorization': 'Basic ' + localStorage.getItem('token'),
     }
   }).then(function (response) {
+    return response;
     console.log(response);
   })
 }
@@ -444,7 +445,6 @@ export const unassignToVacancy = (projectID, vacancyID) => {
 }
 
 export const getVacancyLink = (projectID, vacancyID) => {
-  return { link: 'asdnasjdnasd' }
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/link/', {
     method: 'GET',
     headers: {
@@ -452,9 +452,7 @@ export const getVacancyLink = (projectID, vacancyID) => {
     }
   }).then(function (response) {
     console.log(response);
-    if (response.status === 200) {
-      return response.json();
-    }
+    return response;
   })
 }
 

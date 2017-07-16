@@ -11,7 +11,8 @@ class ProfilePage extends Component {
     this.projectID = +this.props.params.project;
     this.state = {
       creator: false,
-      project: {}
+      project: {},
+      projectPreloader: false
     };
   }
 
@@ -25,8 +26,17 @@ class ProfilePage extends Component {
   }
 
   deleteProject() {
-    delProject(this.projectID);
-    browserHistory.push('/');
+    this.preloader(true, 'projectPreloader');
+    delProject(this.projectID).then(response => {
+      this.preloader(false, 'projectPreloader');
+      browserHistory.push('/');
+    });
+  }
+
+  preloader(value, preloader) {
+    this.setState({
+      preloader: value
+    })
   }
 
   render() {
@@ -43,6 +53,9 @@ class ProfilePage extends Component {
       }
       return (
         <div className="page row expanded">
+          {
+            this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null
+          }
           {
             this.state.creator ?
               <div>

@@ -15,7 +15,7 @@ export function logOut(e) {
 }
 
 export function correctImg(nameOfImg) {
-  if (nameOfImg === null || !nameOfImg) {
+  if (nameOfImg === null || !nameOfImg || nameOfImg === '') {
     return '/img/avatar.png';
   } else if (nameOfImg !== null || nameOfImg) {
     return imgUrl + nameOfImg;

@@ -21,47 +21,60 @@ class Portfolio extends Component {
             <h2 className="small-12 text-center columns">Портфолио</h2>
             <div className="space-2 small-12 columns" />
             <div className="block project shadow-1 small-12 columns row">
-              <span>
-                <Link to={'/project/create'}>Добавить</Link>
-              </span>
+              {
+                this.props.editing ?
+                  <div>
+                    <Link to={'/project/create'}>Добавить</Link>
+                  </div>
+                  :
+                  null
+              }
               {
                 this.props.portfolio.length !== 0 ?
                   this.props.portfolio.map((project, index) => {
                     return (
                       <span key={index}>
                         <div className="small-6 medium-4 columns">
-                          <img src={project.imageUrl} alt="img" />
+                          <img src={project.avatar} alt="img" />
                           <div className="small-rm">
                             {
-                              project.members.map((member, index) => {
-                                return (
-                                  <div key={index} className="member small-12 columns no-padding">
-                                    <p className="role">{member.role}</p>
-                                    <Link to={"/users/" + member.id}
-                                      className="name">{member.name + ' ' + member.surname}</Link>
-                                  </div>
-                                )
-                              })
+                              project.team && project.team.length !== 0 && project.team.member ?
+                                project.team.map((unit, index) => {
+                                  return (
+                                    <div key={index} className="member small-12 columns no-padding">
+                                      <p className="role">{unit.profession}</p>
+                                      <Link to={"/users/" + unit.member.id}
+                                        className="name">{unit.member.name + ' ' + unit.member.surname}</Link>
+                                    </div>
+                                  )
+                                })
+                                :
+                                null
                             }
                           </div>
                         </div>
                         <div className="small-6 medium-8 columns">
-                          <h2 className="small-12 medium-6 nowrap no-padding columns">{project.title}</h2>
+                          <Link to={'/projects/' + project.id}>
+                            <h2 className="small-12 medium-6 nowrap no-padding columns">{project.name}</h2>
+                          </Link>
                           <p className="role medium-rm large-rm">Тимлид</p>
                           <Link to={"/users/" + project.leader.id}
                             className="small-12 medium-6 nowrap no-padding columns">{project.leader.name + ' ' + project.leader.surname}</Link>
                         </div>
                         <div className="small-6 medium-rm large-rm columns">
                           {
-                            project.members.map((member, index) => {
-                              return (
-                                <div key={index} className="member small-12 columns no-padding">
-                                  <p className="role">{member.role}</p>
-                                  <Link to={"/users/" + member.id}
-                                    className="name">{member.name + ' ' + member.surname}</Link>
-                                </div>
-                              )
-                            })
+                            project.team && project.team.length !== 0 && project.team.member ?
+                              project.team.map((unit, index) => {
+                                return (
+                                  <div key={index} className="member small-12 columns no-padding">
+                                    <p className="role">{unit.profession}</p>
+                                    <Link to={"/users/" + unit.member.id}
+                                      className="name">{unit.member.name + ' ' + unit.member.surname}</Link>
+                                  </div>
+                                )
+                              })
+                              :
+                              null
                           }
                         </div>
                         <div className="small-12 medium-8 columns">
