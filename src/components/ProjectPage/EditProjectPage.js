@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { imgUrl, uploadFile, getProject, createProject, editProject } from '../../common/ajaxRequests';
+import {
+  imgUrl,
+  uploadFile,
+  getProject,
+  createProject,
+  editProject,
+  getCurrentUser
+} from '../../common/ajaxRequests';
 import { defaultImg } from '../../common/helpers';
 import Validation from 'react-validation';
 
@@ -16,13 +23,13 @@ class EditProjectPage extends Component {
         avatar: null
       },
       preloader: false
-    }
+    };
   }
 
   componentWillMount() {
     this.props.user.id ? null : browserHistory.push('/');
     if (this.props.route.mode !== 'create') {
-      getProject(this.projectID).then((project) => {
+      getProject(this.projectID).then(project => {
         if (!project || project === null) {
           throw new TypeError('Project not found');
         }
@@ -30,7 +37,7 @@ class EditProjectPage extends Component {
           project: project,
           previewAvatar: project.avatar
         });
-      })
+      });
     }
   }
 
@@ -40,7 +47,7 @@ class EditProjectPage extends Component {
     });
     let file = new FormData();
     file.append('Content', e.target.files[0]);
-    uploadFile(file).then((res) => {
+    uploadFile(file).then(res => {
       if (res.status) {
         if (res.status === 406) {
           this.setState({
@@ -58,14 +65,14 @@ class EditProjectPage extends Component {
           projects: newProject,
           previewAvatar: imgUrl + res,
           avatarStatus: 'Картинка загружена'
-        })
+        });
       }
-    })
+    });
   }
 
   getNewProject() {
     let tags = [];
-    tags = this.form.components.tags.state.value.split(',').map((tag) => {
+    tags = this.form.components.tags.state.value.split(',').map(tag => {
       return tag.trim();
     });
     let newProject = {
@@ -73,8 +80,8 @@ class EditProjectPage extends Component {
       name: this.form.components.name.state.value,
       description: this.form.components.description.state.value,
       tags: tags
-    }
-    console.log(newProject)
+    };
+    console.log(newProject);
     return newProject;
   }
 
@@ -82,8 +89,11 @@ class EditProjectPage extends Component {
     e.preventDefault();
     this.preloader(true);
     createProject(this.getNewProject()).then(response => {
-      this.preloader(false);
-      browserHistory.push('/projects/' + this.projectID)
+      console.log(response);
+      getCurrentUser().then(() => {
+        this.preloader(false);
+        browserHistory.push('/profile');
+      });
     });
   }
 
@@ -92,77 +102,89 @@ class EditProjectPage extends Component {
     this.preloader(true);
     editProject(this.projectID, this.getNewProject()).then(response => {
       this.preloader(false);
-      browserHistory.push('/projects/' + this.projectID)
+      browserHistory.push('/projects/' + this.projectID);
     });
   }
 
   preloader(value) {
     this.setState({
       preloader: value
-    })
+    });
   }
-
 
   render() {
     if (this.props.route.mode === 'create' || (this.props.route.mode !== 'create' && this.state.project.id)) {
       return (
         <div>
-          {
-            this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null
-          }
-          <Validation.components.Form ref={form => { this.form = form }}>
+          {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
+          <Validation.components.Form
+            ref={form => {
+              this.form = form;
+            }}>
             <div style={{ width: '300px' }} className="img-mask auto-img circle border">
-              <img alt="pic" className=""
-                src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar} />
+              <img
+                alt="pic"
+                className=""
+                src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar}
+              />
               <div className="img-upload">
-                <p>{this.state.imgStatus}</p>
-                <input type='file' onChange={this.uploadImage.bind(this)} />
+                <p>
+                  {this.state.imgStatus}
+                </p>
+                <input type="file" onChange={this.uploadImage.bind(this)} />
               </div>
             </div>
             <div>
-              <Validation.components.Input className="small-12 columns end"
+              <Validation.components.Input
+                className="small-12 columns end"
                 value={this.props.route.mode !== 'create' ? this.state.project.name : ''}
                 placeholder="Название проекта"
-                name="name" validations={['isStr', 'required']} />
+                name="name"
+                validations={['isStr', 'required']}
+              />
             </div>
-            <Validation.components.Textarea className="small-12 columns end"
+            <Validation.components.Textarea
+              className="small-12 columns end"
               value={this.props.route.mode !== 'create' ? this.state.project.description : ''}
               placeholder="Описание проекта"
-              name="description" validations={[]} />
-            <Validation.components.Textarea className="small-12 columns end"
+              name="description"
+              validations={[]}
+            />
+            <Validation.components.Textarea
+              className="small-12 columns end"
               value={this.props.route.mode !== 'create' ? this.state.project.tags.join(', ') : ''}
               placeholder="Ваши теги (через запятую). Например: программирование, дизайн"
-              name="tags" validations={[]} />
-            <Validation.components.Button type="submit"
+              name="tags"
+              validations={[]}
+            />
+            <Validation.components.Button
+              type="submit"
               onClick={
-                this.props.route.mode === 'create' ?
-                  this.createProject.bind(this)
-                  :
-                  this.editProject.bind(this)
+                this.props.route.mode === 'create'
+                  ? this.createProject.bind(this)
+                  : this.editProject.bind(this)
               }
               className="donation-form-btn pointer m-b-2 small-12 columns">
               submite
             </Validation.components.Button>
           </Validation.components.Form>
         </div>
-      )
+      );
     } else {
       return (
         <div>
           <span className="preloader">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div />
+            <div />
+            <div />
+            <div />
           </span>
         </div>
-      )
+      );
     }
   }
 }
 
-export default connect(
-  state => ({
-    user: state.userData
-  })
-)(EditProjectPage);
+export default connect(state => ({
+  user: state.userData
+}))(EditProjectPage);

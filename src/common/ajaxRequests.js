@@ -1,7 +1,7 @@
-import store from '../store'
-import 'whatwg-fetch'
-import { browserHistory } from 'react-router'
-import { userData, search } from '../actionCreators'
+import store from '../store';
+import 'whatwg-fetch';
+import { browserHistory } from 'react-router';
+import { userData, search } from '../actionCreators';
 import { correctImg } from './helpers';
 
 export const site = '//emploicore.lod-misis.ru';
@@ -37,7 +37,8 @@ const profile = {
     {
       id: 1,
       title: 'Хапут',
-      description: 'In Russland haben Weihnachten und Silvester Plätze getauscht. Weihnachten fällt auf den 7. Januar und wird also nach Silvester gefeiert. Das wichtigste Ereignis des Abends vor Weihnachten ist ein stundenlanger Gottesdienst mit viel Gesang und schöne Lichter-Prozession.',
+      description:
+        'In Russland haben Weihnachten und Silvester Plätze getauscht. Weihnachten fällt auf den 7. Januar und wird also nach Silvester gefeiert. Das wichtigste Ereignis des Abends vor Weihnachten ist ein stundenlanger Gottesdienst mit viel Gesang und schöne Lichter-Prozession.',
       imageUrl: './img/logo.png',
       tags: ['Программирование', 'Веб-дизайн', 'Андроид'],
       leader: {
@@ -65,7 +66,8 @@ const profile = {
           surname: 'Вальдман'
         }
       ]
-    }],
+    }
+  ],
   organizations: [
     {
       id: 1,
@@ -78,189 +80,183 @@ const profile = {
       title: 'Лига'
     }
   ]
-}
+};
 
-const project =
-  {
-    id: 1,
-    avatar: null,
-    leader: {
-      id: 79,
-      name: 'Вася',
-      surname: 'Пупкин'
-    },
-    name: 'Emploi',
-    description: 'Реализовать свои приобретенные навыки или найти нужного человека себе в команду, в этом вам поможет Emploi',
-    tags: ['Программирование', 'Веб-дизайн', 'Андроид'],
-    team: [
-      {
-        id: 21,
-        member: {
-          id: 79,
-          name: "Гоша",
-          surname: "Ваниль"
-        },
-        profession: "Сиделка",
-        description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
-        tags: [
-          'Сижу', "Не тужу"
-        ],
+const project = {
+  id: 1,
+  avatar: null,
+  leader: {
+    id: 79,
+    name: 'Вася',
+    surname: 'Пупкин'
+  },
+  name: 'Emploi',
+  description:
+    'Реализовать свои приобретенные навыки или найти нужного человека себе в команду, в этом вам поможет Emploi',
+  tags: ['Программирование', 'Веб-дизайн', 'Андроид'],
+  team: [
+    {
+      id: 21,
+      member: {
+        id: 79,
+        name: 'Гоша',
+        surname: 'Ваниль'
       },
-      {
-        id: 24,
-        profession: "Сиделка",
-        description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
-        tags: [
-          'Сижу', "Не", 'тужу'
-        ]
-      }
-    ]
-  }
+      profession: 'Сиделка',
+      description: 'Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.',
+      tags: ['Сижу', 'Не тужу']
+    },
+    {
+      id: 24,
+      profession: 'Сиделка',
+      description: 'Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.',
+      tags: ['Сижу', 'Не', 'тужу']
+    }
+  ]
+};
 
 const vacancy = {
   id: 1,
-  profession: "Сиделка",
-  description: "Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.",
-  tags: [
-    'Сижу', "Не тужу"
-  ]
-}
+  profession: 'Сиделка',
+  description: 'Хорошая сиделка по отличной цене, очень пригодится, ваще кайф.',
+  tags: ['Сижу', 'Не тужу']
+};
 
 export const getCurrentUser = () => {
-  fetch(site + '/current/' + localStorage.getItem('token'), {
+  return fetch(site + '/current/' + localStorage.getItem('token'), {
     method: 'GET'
-  }).then(function (response) {
+  }).then(function(response) {
     if (response.status === 200) {
-      response.json().then((res) => {
+      response.json().then(res => {
         // res.tags.push('Птички')
         // res.tags.push('Бабочки')
         // res.tags.push('Цветочки')
-        console.log(res)
-        store.dispatch(userData.updateUser(res))
-      })
+        console.log(res);
+        store.dispatch(userData.updateUser(res));
+      });
     } else {
-      store.dispatch(userData.updateUser({}))
+      store.dispatch(userData.updateUser({}));
     }
-  })
-}
+  });
+};
 
 export const authorization = (mail, pass) => {
   const data = {
     mail: mail,
     password: pass
-  }
+  };
   fetch(site + '/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(function (response) {
-    if (response.status === 200) {
-      response.json().then((res) => {
-        console.log(res)
-        // Checking for profile completeness
-        if (res.user) {
-          localStorage.setItem('token', res.token)
-          store.dispatch(userData.updateUser(res.user))
-        } else {
-          browserHistory.push('/confirm/' + res.token)
-        }
-      })
+  }).then(
+    function(response) {
+      if (response.status === 200) {
+        response.json().then(res => {
+          console.log(res);
+          // Checking for profile completeness
+          if (res.user) {
+            localStorage.setItem('token', res.token);
+            store.dispatch(userData.updateUser(res.user));
+          } else {
+            browserHistory.push('/confirm/' + res.token);
+          }
+        });
+      }
+    },
+    function(error) {
+      // console.log(error);
     }
-  }, function (error) {
-    // console.log(error);
-  })
-}
+  );
+};
 
 export const preRegistration = (mail, pass) => {
   const data = {
     mail: mail,
     password: pass
-  }
+  };
   fetch(site + '/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(function (response) {
-    console.log(response)
-  }, function (error) {
-    // console.log(error);
-  })
-}
+  }).then(
+    function(response) {
+      console.log(response);
+    },
+    function(error) {
+      // console.log(error);
+    }
+  );
+};
 
 export const editUser = (token, userData) => {
   return fetch(site + '/users/', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'token': token
+      token: token
     },
     body: JSON.stringify(userData)
-  }).then(function (response) {
-    console.log(response)
+  }).then(function(response) {
+    console.log(response);
     if (response.status === 200) {
-      return response.json()
+      return response.json();
     }
-  })
-}
+  });
+};
 
-export const confirmToken = (token) => {
+export const confirmToken = token => {
   return fetch(site + '/users/confirm/' + token, {
     method: 'POST'
-  }).then(function (response) {
-    return response
-  })
-}
+  }).then(function(response) {
+    return response;
+  });
+};
 
-export const getUserByID = (id) => {
+export const getUserByID = id => {
   return fetch(site + '/users/' + id, {
     method: 'GET'
-  }).then(function (response) {
+  }).then(function(response) {
     if (response.status === 200) {
-      return response.json()
+      return response.json();
     }
-  })
-}
+  });
+};
 
-export const uploadFile = (file) => {
+export const uploadFile = file => {
   return fetch(site + '/file', {
     method: 'POST',
 
     body: file
-  }).then(function (response) {
-    console.log(response)
+  }).then(function(response) {
+    console.log(response);
     if (response.status === 200) {
-      return response.json()
+      return response.json();
     } else {
-      return response
+      return response;
     }
-  })
-}
+  });
+};
 
 export const editTags = (token, tags) => {
   return fetch(site + '/users/tags/', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      "token": token
+      token: token
     },
     body: JSON.stringify(tags)
-  }).then(function (response) {
-    console.log(response)
-  })
-}
-
-
-
-
-
-
+  }).then(function(response) {
+    console.log(response);
+  });
+};
 
 /*Projects*/
-export const getProject = (id) => {
+export const getProject = id => {
   //dell
   // return new Promise((resolve, reject) => {
   //   setTimeout(() => {
@@ -273,18 +269,18 @@ export const getProject = (id) => {
   //dell
   return fetch(site + '/projects/' + id, {
     method: 'GET'
-  }).then(function (response) {
+  }).then(function(response) {
     if (response.status === 200) {
-      return response.json().then(function (res) {
+      return response.json().then(function(res) {
         res.avatar = correctImg(res.avatar);
         console.log(res);
         return res;
-      })
+      });
     }
-  })
-}
+  });
+};
 
-export const createProject = (project) => {
+export const createProject = project => {
   /*
     body: {
       avatar,
@@ -296,15 +292,15 @@ export const createProject = (project) => {
   return fetch(site + '/projects/', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token'),
+      Authorization: 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(project)
-  }).then(function (response) {
+  }).then(function(response) {
     return response;
     console.log(response);
-  })
-}
+  });
+};
 
 export const editProject = (id, project) => {
   /*
@@ -318,33 +314,27 @@ export const editProject = (id, project) => {
   return fetch(site + '/projects/' + id, {
     method: 'PUT',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token'),
+      Authorization: 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(project)
-  }).then(function (response) {
+  }).then(function(response) {
     return response;
     console.log(response);
-  })
-}
+  });
+};
 
-export const deleteProject = (projectID) => {
+export const deleteProject = projectID => {
   return fetch(site + '/projects/' + projectID + '/delete/', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token'),
+      Authorization: 'Basic ' + localStorage.getItem('token')
     }
-  }).then(function (response) {
+  }).then(function(response) {
     return response;
     console.log(response);
-  })
-}
-
-
-
-
-
-
+  });
+};
 
 /*Vacancies*/
 export const getVacancy = (projectID, vacancyID) => {
@@ -358,12 +348,12 @@ export const getVacancy = (projectID, vacancyID) => {
   //dell
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID, {
     method: 'GET'
-  }).then(function (response) {
+  }).then(function(response) {
     if (response.status === 200) {
       return response.json();
     }
-  })
-}
+  });
+};
 
 export const createVacancy = (projectID, vacancy) => {
   /*
@@ -376,15 +366,15 @@ export const createVacancy = (projectID, vacancy) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token'),
+      Authorization: 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(vacancy)
-  }).then(function (response) {
+  }).then(function(response) {
     return response;
     console.log(response);
-  })
-}
+  });
+};
 
 export const editVacancy = (projectID, vacancyID, vacancy) => {
   /*
@@ -397,179 +387,184 @@ export const editVacancy = (projectID, vacancyID, vacancy) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID, {
     method: 'PUT',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token'),
+      Authorization: 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(vacancy)
-  }).then(function (response) {
+  }).then(function(response) {
     return response;
     console.log(response);
-  })
-}
+  });
+};
 
 export const deleteVacancy = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/delete/', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token')
+      Authorization: 'Basic ' + localStorage.getItem('token')
     }
-  }).then(function (response) {
+  }).then(function(response) {
     console.log(response);
-  })
-}
+  });
+};
 
 export const assignToVacancy = (projectID, vacancyID, userID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/assign/', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token'),
+      Authorization: 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       memberId: userID
     })
-  }).then(function (response) {
+  }).then(function(response) {
     console.log(response);
-  })
-}
+  });
+};
 
 export const unassignToVacancy = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/unassign/', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token')
+      Authorization: 'Basic ' + localStorage.getItem('token')
     }
-  }).then(function (response) {
+  }).then(function(response) {
     console.log(response);
-  })
-}
+  });
+};
 
 export const getVacancyLink = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/link/', {
     method: 'GET',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token')
+      Authorization: 'Basic ' + localStorage.getItem('token')
     }
-  }).then(function (response) {
+  }).then(function(response) {
     console.log(response);
     return response;
-  })
-}
+  });
+};
 
 export const applyToVacancy = (projectID, vacancyID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/apply', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + localStorage.getItem('token')
+      Authorization: 'Basic ' + localStorage.getItem('token')
     }
-  }).then(function (response) {
+  }).then(function(response) {
     console.log(response);
-  })
-}
+  });
+};
 
-
-
-
-
-
-
-
-
-
-export const getStudentsSearchPreview = () => {          // на пустую строку популярные тэги
+export const getStudentsSearchPreview = () => {
+  // на пустую строку популярные тэги
   /// //////DELETE
   // send data
-  let st = store.getState().search.searchString
-  console.log('Строка: ', st)
-  let tags = store.getState().search.searchSelectedTags
-  console.log('Выбранные тэги: ', tags)
-  let config = store.getState().search.searchConfig
-  console.log('Конфиг ', config)
-  console.log('-----------------------------------------')
+  let st = store.getState().search.searchString;
+  console.log('Строка: ', st);
+  let tags = store.getState().search.searchSelectedTags;
+  console.log('Выбранные тэги: ', tags);
+  let config = store.getState().search.searchConfig;
+  console.log('Конфиг ', config);
+  console.log('-----------------------------------------');
   // get data
-  let mas = []
+  let mas = [];
   for (let i = 0; i < 10; i++) {
-    mas = [...mas, {
-      id: i,
-      name: 'Жамбыл',
-      surname: 'Ермагамбет',
-      avatar: '/img/avatar.jpg',
-      tags: ['Программирование', 'Веб-дизайн', 'Андроид']
-    }]
+    mas = [
+      ...mas,
+      {
+        id: i,
+        name: 'Жамбыл',
+        surname: 'Ермагамбет',
+        avatar: '/img/avatar.jpg',
+        tags: ['Программирование', 'Веб-дизайн', 'Андроид']
+      }
+    ];
   }
   return {
     tags: ['Программирование', 'Веб-дизайн', 'Заоза'],
     data: mas
-  }
-}
+  };
+};
 
 export const getStudentsSearchDataByPage = () => {
   /// //////DELETE
 
   /// get page
-  let searchData = store.getState().search.searchData
+  let searchData = store.getState().search.searchData;
   if (searchData.length % 10 === 0) {
     // let page = searchData.length / 10;
   }
   /// get page
-  let mas = []
+  let mas = [];
   for (let i = 0; i < 10; i++) {
-    mas = [...mas, {
-      id: i,
-      name: 'Рамзан',
-      surname: 'Кадыров',
-      avatar: '/img/avatar.jpg',
-      tags: ['Программирование', 'Верстка', 'Аабааа']
-    }]
+    mas = [
+      ...mas,
+      {
+        id: i,
+        name: 'Рамзан',
+        surname: 'Кадыров',
+        avatar: '/img/avatar.jpg',
+        tags: ['Программирование', 'Верстка', 'Аабааа']
+      }
+    ];
   }
-  store.dispatch(search.pushData(mas))
+  store.dispatch(search.pushData(mas));
   /// //////DELETE
 
-  let url = 'http://lala.ru/users/byString?s='
+  let url = 'http://lala.ru/users/byString?s=';
   fetch(url, {
     method: 'GET'
-  }).then(function (response) {
-    response.json().then(res => {
-      if (res.status >= 200 && res.status < 300) {
+  }).then(
+    function(response) {
+      response.json().then(res => {
+        if (res.status >= 200 && res.status < 300) {
+        }
+      });
+    },
+    function(error) {
+      // console.log(error);
+    }
+  );
+};
 
-      }
-    })
-  }, function (error) {
-    // console.log(error);
-  })
-}
-
-export const getProjectsSearchPreview = () => {          // на пустую строку популярные тэги
+export const getProjectsSearchPreview = () => {
+  // на пустую строку популярные тэги
   /// //////DELETE
-  let mas = []
+  let mas = [];
   for (let i = 0; i < 10; i++) {
-    mas = [...mas, {
-      id: i,
-      name: 'JJJJJJJ',
-      surname: 'Ермагамбет',
-      avatar: '/img/avatar.jpg',
-      tags: ['Программирование', 'Веб-дизайн', 'Андроид']
-    }]
+    mas = [
+      ...mas,
+      {
+        id: i,
+        name: 'JJJJJJJ',
+        surname: 'Ермагамбет',
+        avatar: '/img/avatar.jpg',
+        tags: ['Программирование', 'Веб-дизайн', 'Андроид']
+      }
+    ];
   }
   return {
     tags: ['UUUUUUFFFFFF', 'Веб-дизайн', 'Андроид'],
     data: mas
-  }
+  };
   /// //////DELETE
-}
+};
 
-export const getProjectsSearchDataByPage = () => {
-
-}
+export const getProjectsSearchDataByPage = () => {};
 
 export const getHomePageData = () => {
   fetch('http://jsonplaceholder.typicode.com/posts/1', {
     method: 'GET'
-  }).then(function (response) {
-    response.json().then(data => {
-      // console.log(profile);
-    })
-  }, function (error) {
-    // console.log(error);
-  })
-}
+  }).then(
+    function(response) {
+      response.json().then(data => {
+        // console.log(profile);
+      });
+    },
+    function(error) {
+      // console.log(error);
+    }
+  );
+};
