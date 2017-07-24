@@ -123,8 +123,11 @@ const vacancy = {
 };
 
 export const getCurrentUser = () => {
-  return fetch(site + '/current/' + localStorage.getItem('token'), {
-    method: 'GET'
+  return fetch(site + '/current/', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Basic ' + localStorage.getItem('token')
+    }
   }).then(function(response) {
     if (response.status === 200) {
       response.json().then(res => {
@@ -137,6 +140,17 @@ export const getCurrentUser = () => {
     } else {
       store.dispatch(userData.updateUser({}));
     }
+  });
+};
+
+export const logOut = () => {
+  return fetch(site + '/logOut', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + localStorage.getItem('token')
+    }
+  }).then(function(response) {
+    console.log(response);
   });
 };
 
@@ -435,14 +449,14 @@ export const unassignToVacancy = (projectID, vacancyID) => {
 };
 
 export const getVacancyLink = (projectID, vacancyID) => {
-  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/link/', {
+  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/token/', {
     method: 'GET',
     headers: {
       Authorization: 'Basic ' + localStorage.getItem('token')
     }
   }).then(function(response) {
     console.log(response);
-    return response;
+    return response.json();
   });
 };
 

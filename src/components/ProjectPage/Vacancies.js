@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { site, deleteVacancy as delVacancy, unassignToVacancy as delMember, getVacancyLink, applyToVacancy } from '../../common/ajaxRequests';
+import {
+  site,
+  deleteVacancy as delVacancy,
+  unassignToVacancy as delMember,
+  getVacancyLink,
+  applyToVacancy
+} from '../../common/ajaxRequests';
 
 class Vacancies extends Component {
   constructor(props) {
@@ -9,7 +15,7 @@ class Vacancies extends Component {
     this.state = {
       vacancyLink: '',
       preloader: false
-    }
+    };
   }
 
   deleteVacancy(vacancy) {
@@ -18,7 +24,7 @@ class Vacancies extends Component {
   }
 
   deleteMember(vacancy) {
-    this.props.deleteMember(vacancy.id)
+    this.props.deleteMember(vacancy.id);
     delMember(this.projectID, vacancy.id);
   }
 
@@ -26,120 +32,142 @@ class Vacancies extends Component {
     this.preloader(true);
     getVacancyLink(this.projectID, vacancyID).then(response => {
       this.preloader(false);
-      if (response.status === 200) {
-        response.json().then(function (link) {
-          this.setState({
-            vacancyLink: link
+      response.vacancyToken
+        ? this.setState({
+            vacancyLink: site + response.vacancyToken
           })
-        });
-      }
-    })
+        : null;
+    });
   }
 
-  applyToVacancy(vacancyID) {
-  }
+  applyToVacancy(vacancyID) {}
 
   preloader(value) {
     this.setState({
       preloader: value
-    })
+    });
   }
 
   render() {
     return (
       <div className="small-12 center columns no-padding">
         <div className="projects transition small-12 medium-12 large-10">
-          {
-            this.props.team !== 0 && this.props.team ?
-              <span>
+          {this.props.team !== 0 && this.props.team
+            ? <span>
                 <h2 className="small-12 text-center columns">Команда</h2>
                 <div className="space-2 small-12 columns" />
-                {
-                  this.props.team.map((unit, index) => {
-                    return (
-                      unit.member ?
-                        <div key={index} className="block project shadow-1 small-12 columns row">
-                          {
-                            this.props.creator ?
-                              <div>
-                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>DELETE VACANCY</button>
-                                <Link to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'} style={{ color: 'red' }}>EDIT VACANCY</Link>
+                {this.props.team.map((unit, index) => {
+                  return unit.member
+                    ? <div key={index} className="block project shadow-1 small-12 columns row">
+                        {this.props.creator
+                          ? <div>
+                              <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>
+                                DELETE VACANCY
+                              </button>
+                              <Link
+                                to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'}
+                                style={{ color: 'red' }}>
+                                EDIT VACANCY
+                              </Link>
+                            </div>
+                          : null}
+                        <div className="small-12 columns">
+                          <h2 className="small-12 medium-6 nowrap no-padding columns">
+                            {unit.profession}
+                          </h2>
+                          <Link
+                            to={site + '/users/' + unit.member.id}
+                            className="small-12 medium-6 nowrap no-padding columns">
+                            {unit.member.name + ' ' + unit.member.surname}
+                          </Link>
+                          {this.props.creator
+                            ? <div style={{ color: 'red' }} onClick={this.deleteMember.bind(this, unit)}>
+                                delete member
                               </div>
-                              :
-                              null
-                          }
-                          <div className="small-12 columns">
-                            <h2 className="small-12 medium-6 nowrap no-padding columns">{unit.profession}</h2>
-                            <Link to={site + '/users/' + unit.member.id} className="small-12 medium-6 nowrap no-padding columns">{unit.member.name + ' ' + unit.member.surname}</Link>
-                            {
-                              this.props.creator ?
-                                <div style={{ color: 'red' }} onClick={this.deleteMember.bind(this, unit)}>delete member</div>
-                                :
-                                null
-                            }
-                          </div>
-                          <div className="small-12 columns">
-                            <p>{unit.description}</p>
-                          </div>
-                          <div className="small-12 columns">
-                            {
-                              unit.tags.map((tag, index) => {
-                                return <div key={index} className="tag circle small-bg">{tag}</div>
-                              })
-                            }
-                          </div>
+                            : null}
                         </div>
-                        :
-                        <div key={index} className="block project shadow-1 small-12 columns row border-dashed transparent no-shadow">
-                          {
-                            this.props.creator ?
-                              <div>
-                                <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>DELETE VACANCY</button>
-                                <Link to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'} style={{ color: 'red' }}>EDIT VACANCY</Link>
+                        <div className="small-12 columns">
+                          <p>
+                            {unit.description}
+                          </p>
+                        </div>
+                        <div className="small-12 columns">
+                          {unit.tags.map((tag, index) => {
+                            return (
+                              <div key={index} className="tag circle small-bg">
+                                {tag}
                               </div>
-                              :
-                              null
-                          }
-                          <div className="small-12 columns">
-                            <h2 className="small-12 medium-6 nowrap no-padding columns">{unit.profession}</h2>
-                            <a href="#" onClick={this.applyToVacancy.bind(this, unit.id)} className="small-12 medium-6 nowrap no-padding columns">Нажмите чтобы занять место</a>
-                            {
-                              this.props.creator ?
-                                <div>
-                                  {
-                                    this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null
-                                  }
-                                  <button style={{ color: 'red' }} onClick={this.generateLink.bind(this, unit.id)}>Сгенерировать ссылку</button>
-                                  <input ref={(vacancyLink) => (this.vacancyLink = vacancyLink)} value={this.state.applyToVacancy} type="text" />
-                                </div>
-                                :
-                                null
-                            }
-                          </div>
-                          <div className="small-12 columns">
-                            <p>{unit.description}</p>
-                          </div>
-                          <div className="small-12 columns">
-                            {
-                              unit.tags.map((tag, index) => {
-                                return <div key={index} className="tag circle small-bg">{tag}</div>
-                              })
-                            }
-                          </div>
+                            );
+                          })}
                         </div>
-                    )
-                  })
-                }
-                {
-                  this.props.creator ? <Link to={'/projects/' + this.projectID + '/vacancy/create'} style={{ color: 'red' }}>ADD VACANCY</Link> : null
-                }
+                      </div>
+                    : <div
+                        key={index}
+                        className="block project shadow-1 small-12 columns row border-dashed transparent no-shadow">
+                        {this.props.creator
+                          ? <div>
+                              <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>
+                                DELETE VACANCY
+                              </button>
+                              <Link
+                                to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'}
+                                style={{ color: 'red' }}>
+                                EDIT VACANCY
+                              </Link>
+                            </div>
+                          : null}
+                        <div className="small-12 columns">
+                          <h2 className="small-12 medium-6 nowrap no-padding columns">
+                            {unit.profession}
+                          </h2>
+                          <a
+                            href="#"
+                            onClick={this.applyToVacancy.bind(this, unit.id)}
+                            className="small-12 medium-6 nowrap no-padding columns">
+                            Нажмите чтобы занять место
+                          </a>
+                          {this.props.creator
+                            ? <div>
+                                {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
+                                <button
+                                  style={{ color: 'red' }}
+                                  onClick={this.generateLink.bind(this, unit.id)}>
+                                  Сгенерировать ссылку
+                                </button>
+                                <input
+                                  ref={vacancyLink => (this.vacancyLink = vacancyLink)}
+                                  value={this.state.applyToVacancy}
+                                  type="text"
+                                />
+                              </div>
+                            : null}
+                        </div>
+                        <div className="small-12 columns">
+                          <p>
+                            {unit.description}
+                          </p>
+                        </div>
+                        <div className="small-12 columns">
+                          {unit.tags.map((tag, index) => {
+                            return (
+                              <div key={index} className="tag circle small-bg">
+                                {tag}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>;
+                })}
+                {this.props.creator
+                  ? <Link to={'/projects/' + this.projectID + '/vacancy/create'} style={{ color: 'red' }}>
+                      ADD VACANCY
+                    </Link>
+                  : null}
               </span>
-              :
-              null
-          }
+            : null}
         </div>
       </div>
-    )
+    );
   }
 }
 

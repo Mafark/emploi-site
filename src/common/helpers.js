@@ -1,13 +1,14 @@
 import store from '../store';
 import { browserHistory } from 'react-router';
 import { userData } from '../actionCreators';
-import { site, imgUrl } from './ajaxRequests';
+import { site, imgUrl, logOut as logOutAjax } from './ajaxRequests';
 
-export const defaultImg = '/img/avatar.png'
+export const defaultImg = '/img/avatar.png';
 
 export function logOut(e) {
   e.preventDefault();
   if (confirm('Вы уверены, что хотите выйти?')) {
+    logOutAjax();
     browserHistory.push('/');
     store.dispatch(userData.updateUser({}));
     localStorage.removeItem('token');
