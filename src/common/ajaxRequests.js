@@ -485,9 +485,9 @@ export const applyToVacancyByToken = inviteToken => {
       Authorization: 'Basic ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     },
-    body: {
+    body: JSON.stringify({
       vacancyToken: inviteToken
-    }
+    })
   }).then(function(response) {
     return response;
   });

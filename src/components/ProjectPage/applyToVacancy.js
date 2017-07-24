@@ -8,7 +8,7 @@ class ApplyToVacancy extends Component {
     this.inviteToken = this.props.params.token;
     this.state = {
       loaded: false,
-      applyToVacancyOK: false
+      applyMessage: ''
     };
   }
 
@@ -20,7 +20,15 @@ class ApplyToVacancy extends Component {
       });
       if (response.status === 200) {
         this.setState({
-          applyToVacancyOK: true
+          applyMessage: 'Вы заняли вакансию.'
+        });
+      } else if (response.status === 401) {
+        this.setState({
+          applyMessage: 'Вы не авторизованы, авторизуйтесь и попробуйте заного.'
+        });
+      } else if (response.status === 404) {
+        this.setState({
+          applyMessage: 'Не верный токен. Попросите админа проекта сгенерировать ссылку снова.'
         });
       }
       setTimeout(function() {
@@ -33,7 +41,7 @@ class ApplyToVacancy extends Component {
     if (this.state.loaded) {
       return (
         <div>
-          {this.state.applyToVacancyOK ? <div>Вы заняли вакансию.</div> : <div>Вакансия уже занята.</div>}
+          {this.state.applyMessage}
           <div>Вы будете перенаправлены на главную страницу через 10 секунд.</div>
         </div>
       );

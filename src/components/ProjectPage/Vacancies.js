@@ -20,6 +20,13 @@ class Vacancies extends Component {
   }
   componentWillMount() {
     let newTeam = this.props.team;
+    newTeam.sort((a, b) => {
+      if (!a.member && b.member) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
     newTeam.forEach(function(vacancy) {
       vacancy.vacancyLink = '';
     });
