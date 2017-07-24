@@ -42,7 +42,7 @@ class ApplyToVacancy extends Component {
       return (
         <div>
           {this.state.applyMessage}
-          <div>Вы будете перенаправлены на главную страницу через 10 секунд.</div>
+          <div>Вы будете перенаправлены на страницу профиля через 10 секунд.</div>
         </div>
       );
     } else {
