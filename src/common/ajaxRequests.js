@@ -236,7 +236,14 @@ export const getUserByID = id => {
     method: 'GET'
   }).then(function(response) {
     if (response.status === 200) {
-      return response.json();
+      return response.json().then(user => {
+        console.log(user);
+        user.avatar = correctImg(user.avatar);
+        user.portfolio.forEach(function(project) {
+          project.avatar = correctImg(project.avatar);
+        });
+        return user;
+      });
     }
   });
 };
@@ -468,6 +475,21 @@ export const applyToVacancy = (projectID, vacancyID) => {
     }
   }).then(function(response) {
     console.log(response);
+  });
+};
+
+export const applyToVacancyByToken = inviteToken => {
+  return fetch(site + '/vacancies/applyByToken', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + localStorage.getItem('token'),
+      'Content-Type': 'application/json'
+    },
+    body: {
+      vacancyToken: inviteToken
+    }
+  }).then(function(response) {
+    return response;
   });
 };
 

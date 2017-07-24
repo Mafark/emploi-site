@@ -10,6 +10,7 @@ import ProfilePage from './components/User/ProfilePage';
 import ProjectPage from './components/ProjectPage/ProjectPage';
 import EditProjectPage from './components/ProjectPage/EditProjectPage';
 import EditVacancyPage from './components/ProjectPage/EditVacancyPage';
+import applyToVacancy from './components/ProjectPage/applyToVacancy';
 import ConfirmPage from './components/FormPage/ConfirmPage';
 import StudentsSearcherPage from './components/SearchPage/StudentsSearcher';
 import ProjectsSearcherPage from './components/SearchPage/ProjectsSearcher';
@@ -21,21 +22,22 @@ import NotFound from './components/NotFound';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path='/' component={App}>
+      <Route path="/" component={App}>
         <IndexRoute component={HomePage} />
-        <Route path='confirm' component={ConfirmPage}>
-          <Route path=':params' />
+        <Route path="confirm" component={ConfirmPage}>
+          <Route path=":params" />
         </Route>
-        <Route path='projects' component={ProjectsSearcherPage} />
-        <Route path='students' component={StudentsSearcherPage} />
-        <Route path='users/:user' component={UserPage} />
-        <Route path='profile' component={ProfilePage} />
-        <Route path='projects/:project' component={ProjectPage} />
-        <Route path='projects/:project/edit' mode='edit' component={EditProjectPage} />
-        <Route path='project/create' mode='create' component={EditProjectPage} />
-        <Route path='projects/:project/vacancy/:vacancy/edit' mode='edit' component={EditVacancyPage} />
-        <Route path='projects/:project/vacancy/create' mode='create' component={EditVacancyPage}/>
-        <Route path='*' component={NotFound} />
+        <Route path="projects" component={ProjectsSearcherPage} />
+        <Route path="students" component={StudentsSearcherPage} />
+        <Route path="users/:user" component={UserPage} />
+        <Route path="profile" component={ProfilePage} />
+        <Route path="projects/:project" component={ProjectPage} />
+        <Route path="projects/:project/edit" mode="edit" component={EditProjectPage} />
+        <Route path="project/create" mode="create" component={EditProjectPage} />
+        <Route path="projects/:project/vacancy/:vacancy/edit" mode="edit" component={EditVacancyPage} />
+        <Route path="projects/:project/vacancy/create" mode="create" component={EditVacancyPage} />
+        <Route path="apply/vacancy/:token" component={applyToVacancy} />
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
   </Provider>,

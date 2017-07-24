@@ -13,9 +13,19 @@ class Vacancies extends Component {
     super(props);
     this.projectID = this.props.projectID;
     this.state = {
+      team: {},
       vacancyLink: '',
       preloader: false
     };
+  }
+  componentWillMount() {
+    let newTeam = this.props.team;
+    newTeam.forEach(function(vacancy) {
+      vacancy.vacancyLink = '';
+    });
+    this.setState({
+      team: newTeam
+    });
   }
 
   deleteVacancy(vacancy) {
@@ -31,16 +41,19 @@ class Vacancies extends Component {
   generateLink(vacancyID) {
     this.preloader(true);
     getVacancyLink(this.projectID, vacancyID).then(response => {
-      this.preloader(false);
+      let newTeam = this.state.team.map(function(vacancy) {
+        if (vacancy.id == vacancyID) {
+          vacancy.vacancyLink = 'http:' + site + '/apply/vacancy/' + response.vacancyToken;
+        }
+      });
       response.vacancyToken
         ? this.setState({
-            vacancyLink: site + response.vacancyToken
+            vacancyLink: newTeam
           })
         : null;
+      this.preloader(false);
     });
   }
-
-  applyToVacancy(vacancyID) {}
 
   preloader(value) {
     this.setState({
@@ -56,7 +69,7 @@ class Vacancies extends Component {
             ? <span>
                 <h2 className="small-12 text-center columns">Команда</h2>
                 <div className="space-2 small-12 columns" />
-                {this.props.team.map((unit, index) => {
+                {this.state.team.map((unit, index) => {
                   return unit.member
                     ? <div key={index} className="block project shadow-1 small-12 columns row">
                         {this.props.creator
@@ -120,10 +133,7 @@ class Vacancies extends Component {
                           <h2 className="small-12 medium-6 nowrap no-padding columns">
                             {unit.profession}
                           </h2>
-                          <a
-                            href="#"
-                            onClick={this.applyToVacancy.bind(this, unit.id)}
-                            className="small-12 medium-6 nowrap no-padding columns">
+                          <a href="#" className="small-12 medium-6 nowrap no-padding columns">
                             Нажмите чтобы занять место
                           </a>
                           {this.props.creator
@@ -134,11 +144,7 @@ class Vacancies extends Component {
                                   onClick={this.generateLink.bind(this, unit.id)}>
                                   Сгенерировать ссылку
                                 </button>
-                                <input
-                                  ref={vacancyLink => (this.vacancyLink = vacancyLink)}
-                                  value={this.state.applyToVacancy}
-                                  type="text"
-                                />
+                                <input value={unit.vacancyLink} type="text" />
                               </div>
                             : null}
                         </div>

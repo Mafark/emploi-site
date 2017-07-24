@@ -13,17 +13,12 @@ class UserPage extends Component {
   }
 
   componentWillMount() {
-    getUserByID(this.props.params.user).then((user) => {
+    getUserByID(this.props.params.user).then(user => {
       if (!user || user === null) {
         throw new TypeError('User not found');
       }
-      //DELL
-      console.log(user);
-      user.avatar = '/img/avatar.png';
-      user.organizations = [];
-      //DELL
       this.setState({ user: user });
-    })
+    });
   }
 
   render() {
@@ -33,33 +28,29 @@ class UserPage extends Component {
           <div className="content row">
             <Information user={this.state.user} />
             <div className="space-4 small-12 columns" />
-            {
-              (() => {
-                if (this.state.user.portfolio.length !== 0) {
-                  return <Portfolio portfolio={this.state.user.portfolio} />
-                }
-              })()
-            }
+            {(() => {
+              if (this.state.user.portfolio.length !== 0) {
+                return <Portfolio portfolio={this.state.user.portfolio} />;
+              }
+            })()}
           </div>
         </div>
-      )
+      );
     } else {
       return (
         <div>
           <span className="preloader">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div />
+            <div />
+            <div />
+            <div />
           </span>
         </div>
-      )
+      );
     }
   }
 }
 
-export default connect(
-  state => ({
-    state: state
-  })
-)(UserPage);
+export default connect(state => ({
+  state: state
+}))(UserPage);
