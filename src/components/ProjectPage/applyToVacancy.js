@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { applyToVacancyByToken } from '../../common/ajaxRequests';
 
 class ApplyToVacancy extends Component {
@@ -23,6 +23,9 @@ class ApplyToVacancy extends Component {
           applyToVacancyOK: true
         });
       }
+      setTimeout(function() {
+        browserHistory.push('/profile/');
+      }, 10000);
     });
   }
 
@@ -31,7 +34,7 @@ class ApplyToVacancy extends Component {
       return (
         <div>
           {this.state.applyToVacancyOK ? <div>Вы заняли вакансию.</div> : <div>Вакансия уже занята.</div>}
-          <div>Вы будете перенаправлены на главную страницу через 5 секунд.</div>
+          <div>Вы будете перенаправлены на главную страницу через 10 секунд.</div>
         </div>
       );
     } else {
