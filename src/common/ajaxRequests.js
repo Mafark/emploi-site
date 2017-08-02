@@ -561,9 +561,9 @@ export const getStudentsSearchPreview = () => {
     mas = [
       ...mas,
       {
-        id: i,
-        name: 'Жамбыл',
-        surname: 'Ермагамбет',
+        id: 79,
+        name: 'Василий',
+        surname: 'Пупкин',
         avatar: '/img/avatar.jpg',
         tags: ['Программирование', 'Веб-дизайн', 'Андроид']
       }
