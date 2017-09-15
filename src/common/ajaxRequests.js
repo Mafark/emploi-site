@@ -577,7 +577,13 @@ export const applyToVacancyByToken = inviteToken => {
 
 export const getTagsByString = (str, returnMod = false) => {
   let searchString = str ? str : store.getState().search.searchString;
-  store.dispatch(search.updateTags(['lala', 'lolo']));
+  if (!returnMod) {
+    store.dispatch(search.updateTags(['lala', 'lolo']));
+  } else {
+    return new Promise((resolve, reject) => {
+      resolve(['lala', 'lolo']);
+    });
+  }
   // fetch(site + '/tags/' + searchString, {
   //   method: 'GET'
   // }).then(function(response) {
@@ -602,9 +608,9 @@ export const getStudentsSearchDataByPage = (page = 1, returnMod = false) => {
     site +
       '/users/search/byPage?page=' +
       page +
-      '&str' +
+      '&str=' +
       searchString +
-      '=&tags=' +
+      '&tags=' +
       selectedTags +
       '&course=' +
       config.course +

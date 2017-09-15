@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { getStudentsSearchDataByPage, getProjectsSearchPreview } from '../../common/ajaxRequests';
+import {
+  getStudentsSearchDataByPage,
+  getProjectsSearchPreview,
+  getTagsByString
+} from '../../common/ajaxRequests';
 import Searcher from './Searcher';
 import DataResults from './DataResults';
 import TagResults from './TagResults';
@@ -42,28 +46,32 @@ class SearchPage extends Component {
       this.timeout = true;
       setTimeout(
         function() {
-          this.timeout = false;
           // Get data
           if (this.location === '/students') {
-            this.previewData = getStudentsSearchDataByPage();
+            getTagsByString(undefined, true).then(tags => {
+              updateTags(tags);
+            });
+            getStudentsSearchDataByPage();
           } else if (this.location === '/projects') {
             this.previewData = getProjectsSearchPreview();
           }
-          let selectedTags = this.props.state.search.searchSelectedTags;
-          // Copy array
-          let resultTags = this.previewData.tags.slice(0);
-          // Remove elements matching with the existing selected tags
-          let indexForDell = -1;
-          for (let i = 0; i < selectedTags.length; i++) {
-            indexForDell = resultTags.indexOf(selectedTags[i]);
-            if (indexForDell !== -1) {
-              resultTags.splice(indexForDell, 1);
-              indexForDell = -1;
+          let updateTags = tags => {
+            let selectedTags = this.props.state.search.searchSelectedTags;
+            // Copy array
+            let resultTags = tags.slice(0);
+            // Remove elements matching with the existing selected tags
+            let indexForDell = -1;
+            for (let i = 0; i < selectedTags.length; i++) {
+              indexForDell = resultTags.indexOf(selectedTags[i]);
+              if (indexForDell !== -1) {
+                resultTags.splice(indexForDell, 1);
+                indexForDell = -1;
+              }
             }
-          }
-          // Update tags and data
-          this.props.updateSearchData(this.previewData.data);
-          this.props.updateSearchTags(resultTags);
+            // Update tags
+            this.props.updateSearchTags(resultTags);
+            this.timeout = false;
+          };
         }.bind(this),
         this.timeBetweenRequests
       );
