@@ -4,8 +4,8 @@ import { browserHistory } from 'react-router';
 import { userData, search } from '../actionCreators';
 import { correctImg } from './helpers';
 
-export const site = '//emploicore.lod-misis.ru';
-export const imgUrl = '//emploicore.lod-misis.ru/images/';
+export const site = '//emploilodcore.azurewebsites.net';
+export const imgUrl = site + '/images/';
 
 const profile = {
   id: 1,
@@ -212,7 +212,7 @@ export const editUser = (token, userData) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      token: token
+      Authorization: 'Basic ' + token
     },
     body: JSON.stringify(userData)
   }).then(function(response) {
@@ -544,76 +544,86 @@ export const applyToVacancyByToken = inviteToken => {
 /////////////////////////////////////
 /////////////////////////////////////
 /////////////////////////////////////
-export const getStudentsSearchPreview = () => {
-  // на пустую строку популярные тэги
-  /// //////DELETE
-  // send data
-  let st = store.getState().search.searchString;
-  console.log('Строка: ', st);
-  let tags = store.getState().search.searchSelectedTags;
-  console.log('Выбранные тэги: ', tags);
-  let config = store.getState().search.searchConfig;
-  console.log('Конфиг ', config);
-  console.log('-----------------------------------------');
-  // get data
-  let mas = [];
-  for (let i = 0; i < 10; i++) {
-    mas = [
-      ...mas,
-      {
-        id: 79,
-        name: 'Василий',
-        surname: 'Пупкин',
-        avatar: '/img/avatar.jpg',
-        tags: ['Программирование', 'Веб-дизайн', 'Андроид']
-      }
-    ];
-  }
-  return {
-    tags: ['Программирование', 'Веб-дизайн', 'Заоза'],
-    data: mas
-  };
+// export const getStudentsSearchPreview = () => {
+//   // на пустую строку популярные тэги
+//   /// //////DELETE
+//   // send data
+//   let st = store.getState().search.searchString;
+//   console.log('Строка: ', st);
+//   let tags = store.getState().search.searchSelectedTags;
+//   console.log('Выбранные тэги: ', tags);
+//   let config = store.getState().search.searchConfig;
+//   console.log('Конфиг ', config);
+//   console.log('-----------------------------------------');
+//   // get data
+//   let mas = [];
+//   for (let i = 0; i < 10; i++) {
+//     mas = [
+//       ...mas,
+//       {
+//         id: 79,
+//         name: 'Василий',
+//         surname: 'Пупкин',
+//         avatar: '/img/avatar.jpg',
+//         tags: ['Программирование', 'Веб-дизайн', 'Андроид']
+//       }
+//     ];
+//   }
+//   return {
+//     tags: ['Программирование', 'Веб-дизайн', 'Заоза'],
+//     data: mas
+//   };
+// };
+
+export const getTagsByString = (str, returnMod = false) => {
+  let searchString = str ? str : store.getState().search.searchString;
+  store.dispatch(search.updateTags(['lala', 'lolo']));
+  // fetch(site + '/tags/' + searchString, {
+  //   method: 'GET'
+  // }).then(function(response) {
+  //   return response.json().then(tags => {
+  //     if (!returnMod) {
+  //       store.dispatch(search.updateTags(tags));
+  //     } else {
+  //       return new Promise((resolve, reject) => {
+  //         resolve(tags);
+  //       });
+  //     }
+  //   });
+  // });
 };
 
-export const getStudentsSearchDataByPage = () => {
-  /// //////DELETE
+export const getStudentsSearchDataByPage = (page = 1, returnMod = false) => {
+  let searchString = store.getState().search.searchString;
+  let selectedTags = store.getState().search.searchSelectedTags;
+  let config = store.getState().search.searchConfig;
 
-  /// get page
-  let searchData = store.getState().search.searchData;
-  if (searchData.length % 10 === 0) {
-    // let page = searchData.length / 10;
-  }
-  /// get page
-  let mas = [];
-  for (let i = 0; i < 10; i++) {
-    mas = [
-      ...mas,
-      {
-        id: i,
-        name: 'Рамзан',
-        surname: 'Кадыров',
-        avatar: '/img/avatar.jpg',
-        tags: ['Программирование', 'Верстка', 'Аабааа']
-      }
-    ];
-  }
-  store.dispatch(search.pushData(mas));
-  /// //////DELETE
-
-  let url = 'http://lala.ru/users/byString?s=';
-  fetch(url, {
-    method: 'GET'
-  }).then(
-    function(response) {
-      response.json().then(res => {
-        if (res.status >= 200 && res.status < 300) {
-        }
-      });
-    },
-    function(error) {
-      // console.log(error);
+  return fetch(
+    site +
+      '/users/search/byPage?page=' +
+      page +
+      '&str' +
+      searchString +
+      '=&tags=' +
+      selectedTags +
+      '&course=' +
+      config.course +
+      '&institute=' +
+      config.institute,
+    {
+      method: 'GET'
     }
-  );
+  ).then(function(response) {
+    return response.json().then(users => {
+      if (!returnMod) {
+        store.dispatch(page === 1 ? search.updateData(users) : search.pushData(users));
+      } else {
+        return new Promise((resolve, reject) => {
+          resolve(users);
+        });
+      }
+    });
+  });
 };
 
 export const getProjectsSearchPreview = () => {
