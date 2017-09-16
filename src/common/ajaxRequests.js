@@ -611,7 +611,7 @@ export const getStudentsSearchDataByPage = (page = 1, returnMod = false) => {
       '&str=' +
       searchString +
       '&tags=' +
-      selectedTags +
+      JSON.stringify(selectedTags) +
       '&course=' +
       config.course +
       '&institute=' +

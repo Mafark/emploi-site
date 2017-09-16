@@ -69,8 +69,7 @@ class ConfirmPage extends Component {
       contacts:
         contacts.filter(contact => {
           return contact.value !== '';
-        }) || [],
-      avatar: ''
+        }) || []
     };
     console.log(this.newData);
     editUser(this.token, this.newData).then(res => {
