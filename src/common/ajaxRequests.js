@@ -577,26 +577,26 @@ export const applyToVacancyByToken = inviteToken => {
 
 export const getTagsByString = (str, returnMod = false) => {
   let searchString = str ? str : store.getState().search.searchString;
-  if (!returnMod) {
-    store.dispatch(search.updateTags(['lala', 'lolo']));
-  } else {
-    return new Promise((resolve, reject) => {
-      resolve(['lala', 'lolo']);
-    });
-  }
-  // fetch(site + '/tags/' + searchString, {
-  //   method: 'GET'
-  // }).then(function(response) {
-  //   return response.json().then(tags => {
-  //     if (!returnMod) {
-  //       store.dispatch(search.updateTags(tags));
-  //     } else {
-  //       return new Promise((resolve, reject) => {
-  //         resolve(tags);
-  //       });
-  //     }
+  // if (!returnMod) {
+  //   store.dispatch(search.updateTags(['lala', 'lolo']));
+  // } else {
+  //   return new Promise((resolve, reject) => {
+  //     resolve(['lala', 'lolo']);
   //   });
-  // });
+  // }
+  return fetch(site + '/tags/' + searchString, {
+    method: 'GET'
+  }).then(function(response) {
+    return response.json().then(tags => {
+      if (!returnMod) {
+        store.dispatch(search.updateTags(tags));
+      } else {
+        return new Promise((resolve, reject) => {
+          resolve(tags);
+        });
+      }
+    });
+  });
 };
 
 export const getStudentsSearchDataByPage = (page = 1, returnMod = false) => {
@@ -621,6 +621,9 @@ export const getStudentsSearchDataByPage = (page = 1, returnMod = false) => {
     }
   ).then(function(response) {
     return response.json().then(users => {
+      for (let i = 0; i < users.length; i++) {
+        users[i].avatar = correctImg(users[i].avatar);
+      }
       if (!returnMod) {
         store.dispatch(page === 1 ? search.updateData(users) : search.pushData(users));
       } else {
