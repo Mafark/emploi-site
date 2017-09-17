@@ -25,14 +25,11 @@ class App extends Component {
       <div>
         <Header />
         {this.props.state.userData.loaded !== false ? (
-          <div>{this.props.children}</div>
+          <main className="main">{this.props.children}</main>
         ) : (
-          <div
-            style={{
-              minHeight: '100vh'
-            }}>
+          <main className="main">
             <Preloader />
-          </div>
+          </main>
         )}
         <Footer />
       </div>
