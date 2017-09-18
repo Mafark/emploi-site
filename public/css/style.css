@@ -2,6 +2,51 @@
   min-height: 100vh;
 }
 
+.save-button {
+  margin: 0 !important;
+  padding: 12px !important;
+  background-color: #b42532;
+  color: #fff;
+  border-radius: 3px;
+  margin-bottom: 40px !important;
+  width: 100%;
+}
+
+.tag-input {
+  width: 150px;
+  border-width: 0px !important;
+  border-style: initial !important;
+  border-color: initial !important;
+  border-image: initial !important;
+}
+
+.tag-input:hover,
+.tag-input:focus {
+  outline: none;
+}
+
+.plus-button {
+  font-size: 24px;
+  height: 30px;
+  width: 30px;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  background-color: #767676;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.plus-button:hover {
+  background-color: #b42532;
+  box-shadow: none !important;
+  margin: auto !important;
+}
+
+.plus-button:focus {
+  outline: none;
+}
+
 .example-appear {
   opacity: 0.01;
   transition: opacity 0.5s ease, transform 0.5s ease;

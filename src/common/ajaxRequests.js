@@ -268,9 +268,9 @@ export const editTags = (token, tags) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      token: token
+      Authorization: 'Basic ' + token
     },
-    body: JSON.stringify(tags)
+    body: JSON.stringify({ tags: tags })
   }).then(function(response) {
     console.log(response);
   });

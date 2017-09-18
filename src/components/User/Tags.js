@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Tags extends Component {
   constructor() {
     super();
     this.state = {
       tags: []
-    }
+    };
   }
 
   componentWillMount() {
@@ -16,7 +16,7 @@ class Tags extends Component {
     this.setState({
       tags: this.props.user.tags
     });
-    console.log('set' + this.props.user.tags)
+    console.log('set' + this.props.user.tags);
   }
 
   addEmptyTag() {
@@ -50,38 +50,37 @@ class Tags extends Component {
         <div>
           <hr />
           <div className="tags text-center small-12 columns">
-            {
-              this.state.tags.map((tag, index) => {
-                return <span key={index}>
-                  <input className={'tag circle small-bg' + this.props.editClass}
+            {this.state.tags.map((tag, index) => {
+              return (
+                <span className={'tag circle small-bg ' + this.props.editClass} key={index}>
+                  <input
+                    className="small-bg tag-input"
                     onChange={this.changeTag.bind(this, tag)}
-                    value={tag} />
-                  {
-                    this.props.editing ?
-                      <i onClick={this.deleteTag.bind(this, tag)}
-                        className={"material-icons" + this.props.editClass}>close</i>
-                      :
-                      null
-                  }
+                    value={tag}
+                  />
+                  {this.props.editing ? (
+                    <i
+                      onClick={this.deleteTag.bind(this, tag)}
+                      className={'material-icons ' + this.props.editClass}>
+                      close
+                    </i>
+                  ) : null}
                 </span>
-              })
-            }
-            {
-              this.props.editing ?
-                <button onClick={this.addEmptyTag.bind(this)}>Добавить тег</button>
-                :
-                null
-            }
+              );
+            })}
+            {this.props.editing ? (
+              <button className="plus-button" onClick={this.addEmptyTag.bind(this)}>
+                +
+              </button>
+            ) : null}
           </div>
         </div>
-      )
+      );
     }
     if (this.props.editing) {
       this.addEmptyTag();
     } else {
-      this.state.tags && this.state.tags.indexOf('') !== -1 ? 
-        this.deleteTag('')
-      : null;
+      this.state.tags && this.state.tags.indexOf('') !== -1 ? this.deleteTag('') : null;
     }
     return null;
   }
