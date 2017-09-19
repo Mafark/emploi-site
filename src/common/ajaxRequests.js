@@ -587,12 +587,12 @@ export const getTagsByString = (str, returnMod = false) => {
   return fetch(site + '/tags/' + searchString, {
     method: 'GET'
   }).then(function(response) {
-    return response.json().then(tags => {
+    return response.json().then(res => {
       if (!returnMod) {
-        store.dispatch(search.updateTags(tags));
+        store.dispatch(search.updateTags(res.tags));
       } else {
         return new Promise((resolve, reject) => {
-          resolve(tags);
+          resolve(res.tags);
         });
       }
     });
