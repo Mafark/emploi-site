@@ -47,6 +47,34 @@
   outline: none;
 }
 
+.icon-link {
+  margin-left: 5px !important;
+  height: 48px;
+  width: 48px;
+  text-align: center !important;
+  vertical-align: middle;
+  border-radius: 3px;
+  line-height: 48px;
+  display: inline-block;
+  background-image: radial-gradient(50% 50%, #4397d5 50%, #4587cc 100%);
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-link .material-icons {
+  vertical-align: middle;
+  font-size: 30px !important;
+}
+
+.icon-link:hover {
+  box-shadow: 0 2px 0 0 #2d3ea8;
+  margin: -2px 0 2px;
+}
+
+.icon-link:focus {
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
 .color-grey {
   color: #7a7a7a;
 }

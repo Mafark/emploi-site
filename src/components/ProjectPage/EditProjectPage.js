@@ -75,6 +75,11 @@ class EditProjectPage extends Component {
     tags = this.form.components.tags.state.value.split(',').map(tag => {
       return tag.trim();
     });
+    if (this.state.project.avatar === '/img/avatar.png') {
+      this.state.project.avatar = null;
+    } else {
+      this.state.project.avatar = this.state.project.avatar.split(imgUrl)[1];
+    }
     let newProject = {
       avatar: this.state.project.avatar,
       name: this.form.components.name.state.value,
@@ -128,9 +133,7 @@ class EditProjectPage extends Component {
                 src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar}
               />
               <div className="img-upload">
-                <p>
-                  {this.state.imgStatus}
-                </p>
+                <p>{this.state.imgStatus}</p>
                 <input type="file" onChange={this.uploadImage.bind(this)} />
               </div>
             </div>
@@ -160,9 +163,11 @@ class EditProjectPage extends Component {
             <Validation.components.Button
               type="submit"
               onClick={
-                this.props.route.mode === 'create'
-                  ? this.createProject.bind(this)
-                  : this.editProject.bind(this)
+                this.props.route.mode === 'create' ? (
+                  this.createProject.bind(this)
+                ) : (
+                  this.editProject.bind(this)
+                )
               }
               className="donation-form-btn pointer m-b-2 small-12 columns">
               submite
