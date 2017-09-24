@@ -22,7 +22,7 @@ class DataResults extends Component {
   }
 
   render() {
-    if (
+    /*  if (
       this.props.state.search.searchString === '' &&
       this.props.state.search.searchSelectedTags.length === 0
     ) {
@@ -37,9 +37,14 @@ class DataResults extends Component {
           </div>
         </div>
       );
-    } else if (this.props.location === '/students') {
+    } else
+    */
+    if (this.props.location === '/students') {
       return (
         <div className="search-units block shadow-1 small-12 columns">
+          {this.props.state.search.searchData.length === 0 ? (
+            <div className="color-grey center">Здесь будут результаты поиска</div>
+          ) : null}
           {this.props.state.search.searchData.map((item, index) => {
             return (
               <div key={index}>

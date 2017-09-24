@@ -62,6 +62,9 @@ class TagResults extends Component {
       <div className="search-units block shadow-1 small-12 columns">
         <div>
           <div className="small-12 columns">
+            {this.props.state.search.searchTags.length === 0 && this.selectedTags.length === 0 ? (
+              <div className="color-grey center">Здесь будут предложенные теги</div>
+            ) : null}
             {this.selectedTags.map((tag, index) => {
               return (
                 <div

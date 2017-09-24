@@ -48,6 +48,7 @@ class ConfigurationForm extends Component {
             className="small-12 columns"
             type="text"
             required>
+            <option value="any">Любой</option>
             <option value="1">1 курс (бакалавриат)</option>
             <option value="2">2 курс (бакалавриат)</option>
             <option value="3">3 курс (бакалавриат)</option>
@@ -67,14 +68,14 @@ class ConfigurationForm extends Component {
             className="small-12 columns"
             type="text"
             required>
-            {/* <option value="any">Любой</option> */}
+            <option value="any">Любой</option>
             <option value="itasu">ИТАСУ</option>
             <option value="inmin">ИНМИН</option>
             <option value="ekotekh">ЭКОТЕХ</option>
             <option value="ibo">ИБО</option>
           </select>
         </div>
-        <div className="small-12 medium-12 large-12 columns">
+        {/* <div className="small-12 medium-12 large-12 columns">
           <label htmlFor="interests" className="small-12 center columns">
             Область знаний
           </label>
@@ -85,7 +86,7 @@ class ConfigurationForm extends Component {
             <option value="movie">Монтаж</option>
           </select>
           <div className="space-2 small-12 " />
-        </div>
+        </div> */}
         <div className="space-2 small-12 columns" />
       </div>
     );
