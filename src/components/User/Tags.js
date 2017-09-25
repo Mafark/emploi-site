@@ -69,7 +69,7 @@ class Tags extends Component {
               );
             })}
             {this.props.editing ? (
-              <button className="plus-button" onClick={this.addEmptyTag.bind(this)}>
+              <button className="icon-link icon-link__small" onClick={this.addEmptyTag.bind(this)}>
                 +
               </button>
             ) : null}
