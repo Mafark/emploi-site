@@ -10,7 +10,7 @@ class Information extends Component {
           <div className="small-12 columns">
             <span className="right">
               <button className="icon-link" onClick={this.props.deleteProject.bind(this)}>
-                <i className="material-icons">close</i>
+                <i className="material-icons">delete</i>
               </button>
               <Link className="icon-link" to={this.props.location.pathname + '/edit'}>
                 <i className="material-icons">edit</i>

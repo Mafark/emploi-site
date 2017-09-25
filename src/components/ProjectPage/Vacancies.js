@@ -90,7 +90,7 @@ class Vacancies extends Component {
                       <div className="small-12 columns">
                         <span className="right">
                           <button className="icon-link" onClick={this.deleteVacancy.bind(this, unit)}>
-                            <i className="material-icons">close</i>
+                            <i className="material-icons">delete</i>
                           </button>
                           <Link
                             className="icon-link"
@@ -110,7 +110,7 @@ class Vacancies extends Component {
                           <span
                             className="icon-link icon-link__small inline"
                             onClick={this.deleteMember.bind(this, unit)}>
-                            <i className="material-icons">close</i>
+                            <i className="material-icons">delete</i>
                           </span>
                         ) : null}
                       </Link>
@@ -143,7 +143,7 @@ class Vacancies extends Component {
                         </span>
                         <span className="right">
                           <button className="icon-link" onClick={this.deleteVacancy.bind(this, unit)}>
-                            <i className="material-icons">close</i>
+                            <i className="material-icons">delete</i>
                           </button>
                           <Link
                             className="icon-link"
