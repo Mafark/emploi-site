@@ -175,7 +175,7 @@ class EditProjectPage extends Component {
                     this.editProject.bind(this)
                   )
                 }
-                className="small-bg small-12 medium-4 medium-offset-4 large-4 large-offset-4 columns">
+                className="float-none small-bg small-12 medium-4 medium-offset-4 large-4 large-offset-4 columns">
                 Отправить
               </Validation.components.Button>
             </Validation.components.Form>
