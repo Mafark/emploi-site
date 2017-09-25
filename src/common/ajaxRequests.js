@@ -251,7 +251,6 @@ export const getUserByID = id => {
 export const uploadFile = file => {
   return fetch(site + '/file', {
     method: 'POST',
-
     body: file
   }).then(function(response) {
     console.log(response);

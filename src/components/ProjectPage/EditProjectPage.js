@@ -61,10 +61,11 @@ class EditProjectPage extends Component {
       } else {
         let newProject = Object.assign({}, this.state.project);
         newProject.avatar = res;
+        console.log(newProject);
         this.setState({
-          projects: newProject,
+          project: newProject,
           previewAvatar: imgUrl + res,
-          avatarStatus: 'Картинка загружена'
+          imgStatus: 'Картинка загружена'
         });
       }
     });
@@ -77,8 +78,6 @@ class EditProjectPage extends Component {
     });
     if (this.state.project.avatar === '/img/avatar.png') {
       this.state.project.avatar = null;
-    } else {
-      this.state.project.avatar = this.state.project.avatar.split(imgUrl)[1];
     }
     let newProject = {
       avatar: this.state.project.avatar,
@@ -120,59 +119,67 @@ class EditProjectPage extends Component {
   render() {
     if (this.props.route.mode === 'create' || (this.props.route.mode !== 'create' && this.state.project.id)) {
       return (
-        <div>
-          {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
-          <Validation.components.Form
-            ref={form => {
-              this.form = form;
-            }}>
-            <div style={{ width: '300px' }} className="img-mask auto-img circle border">
-              <img
-                alt="pic"
-                className=""
-                src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar}
-              />
-              <div className="img-upload">
-                <p>{this.state.imgStatus}</p>
-                <input type="file" onChange={this.uploadImage.bind(this)} />
+        <div className="content row">
+          <div className="block wide shadow-1 small-12 medium-10 medium-offset-1 large-8 large-offset-2  columns">
+            {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
+            <Validation.components.Form
+              ref={form => {
+                this.form = form;
+              }}>
+              {!this.props.route.mode === 'create' ? (
+                <div className="small-12 center columns">
+                  <div style={{ width: '300px' }} className="img-mask auto-img circle border">
+                    <img
+                      alt="pic"
+                      className=""
+                      src={this.state.previewAvatar === null ? defaultImg : this.state.previewAvatar}
+                    />
+                    <div className="img-upload">
+                      <p>{this.state.imgStatus}</p>
+                      <input type="file" onChange={this.uploadImage.bind(this)} />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              <div>
+                <Validation.components.Input
+                  type="text"
+                  className="small-12 columns property-input edit full-width"
+                  value={this.props.route.mode !== 'create' ? this.state.project.name : ''}
+                  placeholder="Название проекта"
+                  name="name"
+                  validations={['isStr', 'required']}
+                />
               </div>
-            </div>
-            <div>
-              <Validation.components.Input
-                className="small-12 columns end"
-                value={this.props.route.mode !== 'create' ? this.state.project.name : ''}
-                placeholder="Название проекта"
-                name="name"
-                validations={['isStr', 'required']}
+              <div className="space-2 small-12 columns" />
+              <Validation.components.Textarea
+                className="description text-center small-12 columns"
+                value={this.props.route.mode !== 'create' ? this.state.project.description : ''}
+                placeholder="Описание проекта"
+                name="description"
+                validations={[]}
               />
-            </div>
-            <Validation.components.Textarea
-              className="small-12 columns end"
-              value={this.props.route.mode !== 'create' ? this.state.project.description : ''}
-              placeholder="Описание проекта"
-              name="description"
-              validations={[]}
-            />
-            <Validation.components.Textarea
-              className="small-12 columns end"
-              value={this.props.route.mode !== 'create' ? this.state.project.tags.join(', ') : ''}
-              placeholder="Ваши теги (через запятую). Например: программирование, дизайн"
-              name="tags"
-              validations={[]}
-            />
-            <Validation.components.Button
-              type="submit"
-              onClick={
-                this.props.route.mode === 'create' ? (
-                  this.createProject.bind(this)
-                ) : (
-                  this.editProject.bind(this)
-                )
-              }
-              className="donation-form-btn pointer m-b-2 small-12 columns">
-              submite
-            </Validation.components.Button>
-          </Validation.components.Form>
+              <Validation.components.Textarea
+                className="description text-center small-12 columns"
+                value={this.props.route.mode !== 'create' ? this.state.project.tags.join(', ') : ''}
+                placeholder="Ваши теги (через запятую). Например: программирование, дизайн"
+                name="tags"
+                validations={[]}
+              />
+              <Validation.components.Button
+                type="submit"
+                onClick={
+                  this.props.route.mode === 'create' ? (
+                    this.createProject.bind(this)
+                  ) : (
+                    this.editProject.bind(this)
+                  )
+                }
+                className="small-bg small-12 medium-4 medium-offset-4 large-4 large-offset-4 columns">
+                Отправить
+              </Validation.components.Button>
+            </Validation.components.Form>
+          </div>
         </div>
       );
     } else {
