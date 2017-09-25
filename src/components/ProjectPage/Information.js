@@ -6,7 +6,7 @@ class Information extends Component {
   render() {
     return (
       <div className="block wide shadow-1 small-12 columns row">
-        {/* {this.props.creator ? (
+        {this.props.creator ? (
           <div className="small-12 columns">
             <span className="right">
               <button className="icon-link" onClick={this.props.deleteProject.bind(this)}>
@@ -17,7 +17,7 @@ class Information extends Component {
               </Link>
             </span>
           </div>
-        ) : null} */}
+        ) : null}
         <div className="space-1 small-3 medium-rm large-rm columns" />
         <div className="small-12 medium-12 large-padding-left-3 columns">
           <div className="small-12 medium-4 padding-right-3 columns small-no-padding">
