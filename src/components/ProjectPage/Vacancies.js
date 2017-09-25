@@ -77,8 +77,8 @@ class Vacancies extends Component {
               <h2 className="small-12 text-center columns">
                 Команда{' '}
                 {this.props.creator ? (
-                  <Link to={'/projects/' + this.projectID + '/vacancy/create'} style={{ color: 'red' }}>
-                    <button className="plus-button">+</button>
+                  <Link to={'/projects/' + this.projectID + '/vacancy/create'}>
+                    <button className="icon-link icon-link__small">+</button>
                   </Link>
                 ) : null}
               </h2>
@@ -87,29 +87,33 @@ class Vacancies extends Component {
                 return unit.member ? (
                   <div key={index} className="block project shadow-1 small-12 columns row">
                     {this.props.creator ? (
-                      <div>
-                        <button style={{ color: 'red' }} onClick={this.deleteVacancy.bind(this, unit)}>
-                          DELETE VACANCY
-                        </button>
-                        <Link
-                          to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'}
-                          style={{ color: 'red' }}>
-                          EDIT VACANCY
-                        </Link>
+                      <div className="small-12 columns">
+                        <span className="right">
+                          <button className="icon-link" onClick={this.deleteVacancy.bind(this, unit)}>
+                            <i className="material-icons">close</i>
+                          </button>
+                          <Link
+                            className="icon-link"
+                            to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'}>
+                            <i className="material-icons">edit</i>
+                          </Link>
+                        </span>
                       </div>
                     ) : null}
                     <div className="small-12 columns">
                       <h2 className="small-12 medium-6 nowrap no-padding columns">{unit.profession}</h2>
                       <Link
                         to={site + '/users/' + unit.member.id}
-                        className="small-12 medium-6 nowrap no-padding columns">
+                        className="small-12 medium-6 nowrap no-padding inline columns">
                         {unit.member.name + ' ' + unit.member.surname}
+                        {this.props.creator ? (
+                          <span
+                            className="icon-link icon-link__small inline"
+                            onClick={this.deleteMember.bind(this, unit)}>
+                            <i className="material-icons">close</i>
+                          </span>
+                        ) : null}
                       </Link>
-                      {this.props.creator ? (
-                        <div style={{ color: 'red' }} onClick={this.deleteMember.bind(this, unit)}>
-                          delete member
-                        </div>
-                      ) : null}
                     </div>
                     <div className="small-12 columns">
                       <p>{unit.description}</p>

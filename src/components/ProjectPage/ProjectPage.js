@@ -72,18 +72,24 @@ class ProfilePage extends Component {
       return (
         <div className="page row expanded">
           {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
-          {this.state.creator
-            ? <div>
-                <Link to={this.props.location.pathname + '/edit'} style={{ fontSize: '40px', color: 'red' }}>
-                  EDIT
-                </Link>
-                <button onClick={this.deleteProject.bind(this)} style={{ fontSize: '40px', color: 'red' }}>
-                  DELETE PROJECT
-                </button>
-              </div>
-            : null}
+          {this.state.creator ? (
+            <div>
+              <Link to={this.props.location.pathname + '/edit'} style={{ fontSize: '40px', color: 'red' }}>
+                EDIT
+              </Link>
+              <button onClick={this.deleteProject.bind(this)} style={{ fontSize: '40px', color: 'red' }}>
+                DELETE PROJECT
+              </button>
+            </div>
+          ) : null}
+
           <div className="content row">
-            <Information creator={this.state.creator} project={this.state.project} />
+            <Information
+              creator={this.state.creator}
+              deleteProject={this.deleteProject}
+              project={this.state.project}
+              location={this.props.location}
+            />
             <div className="space-4 small-12 columns" />
             <Vacancies
               creator={this.state.creator}

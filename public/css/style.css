@@ -48,7 +48,7 @@
 }
 
 .icon-link {
-  margin-left: 5px !important;
+  margin: -2px 0 2px 5px !important;
   height: 48px;
   width: 48px;
   text-align: center !important;
@@ -56,7 +56,7 @@
   border-radius: 3px;
   line-height: 48px;
   display: inline-block;
-  background-image: radial-gradient(50% 50%, #4397d5 50%, #4587cc 100%);
+  background-image: radial-gradient(50% 50%, #4397d5 50%, #4487cc 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -68,11 +68,21 @@
 
 .icon-link:hover {
   box-shadow: 0 2px 0 0 #2d3ea8;
-  margin: -2px 0 2px;
+  margin: -4px 0 4px 5px !important;
 }
 
 .icon-link:focus {
   outline: -webkit-focus-ring-color auto 5px;
+}
+
+.icon-link__small {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+}
+
+.icon-link__small .material-icons {
+  font-size: 24px !important;
 }
 
 .color-grey {

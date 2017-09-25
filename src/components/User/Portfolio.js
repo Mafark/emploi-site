@@ -19,14 +19,16 @@ class Portfolio extends Component {
         <div className="small-12 center columns no-padding">
           <div className="projects transition small-12 medium-12 large-10">
             {this.props.portfolio.length !== 0 ? (
-              <h2 className="small-12 text-center columns">Портфолио</h2>
+              <h2 className="small-12 text-center columns">
+                Портфолио{' '}
+                {this.props.editing ? (
+                  <Link to={'/project/create'}>
+                    <button className="icon-link icon-link__small">+</button>
+                  </Link>
+                ) : null}
+              </h2>
             ) : null}
             <div className="space-2 small-12 columns" />
-            {this.props.editing ? (
-              <div>
-                <Link to={'/project/create'}>Добавить</Link>
-              </div>
-            ) : null}
             <div className="block project shadow-1 small-12 columns row">
               {this.props.portfolio.length !== 0 ? (
                 this.props.portfolio.map((project, index) => {
