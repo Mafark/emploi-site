@@ -18,14 +18,13 @@ class SearchPage extends Component {
     }
     this.location = window.location.pathname;
     this.previewData = {};
-    this.timeout = false;
-    this.timeBetweenRequests = 700;
+    // this.timeout = false;
+    // this.timeBetweenRequests = 700;
     this.timerId;
-    this.delayTimer = 1000;
+    this.delayForTimer = 1000;
   }
 
   componentWillMount() {
-    console.log(this.location);
     if (this.props.state.search.searchTags !== [] || this.props.state.search.searchSelectedTags !== []) {
       this.resetData();
     }
@@ -69,7 +68,7 @@ class SearchPage extends Component {
           this.props.updateSearchTags(resultTags);
         };
       }.bind(this),
-      this.delayTimer
+      this.delayForTimer
     );
 
     // let str = e.target.value;
