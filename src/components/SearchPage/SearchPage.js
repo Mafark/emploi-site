@@ -20,9 +20,12 @@ class SearchPage extends Component {
     this.previewData = {};
     this.timeout = false;
     this.timeBetweenRequests = 700;
+    this.timerId;
+    this.delayTimer = 1000;
   }
 
   componentWillMount() {
+    console.log(this.location);
     if (this.props.state.search.searchTags !== [] || this.props.state.search.searchSelectedTags !== []) {
       this.resetData();
     }
@@ -38,44 +41,77 @@ class SearchPage extends Component {
   getPreview(e) {
     let str = e.target.value;
     this.props.changeSearchString(str);
-    if (str === '' && this.props.state.search.searchSelectedTags.length === 0) {
-      this.props.updateSearchData([]);
-      this.getPopularTags();
-    }
-    if (this.timeout === false && !(str === '' && this.props.state.search.searchSelectedTags.length === 0)) {
-      this.timeout = true;
-      setTimeout(
-        function() {
-          // Get data
-          if (this.location === '/students') {
-            getTagsByString(undefined, true).then(tags => {
-              updateTags(tags);
-            });
-            getStudentsSearchDataByPage();
-          } else if (this.location === '/projects') {
-            this.previewData = getProjectsSearchPreview();
-          }
-          let updateTags = tags => {
-            let selectedTags = this.props.state.search.searchSelectedTags;
-            // Copy array
-            let resultTags = tags.slice(0);
-            // Remove elements matching with the existing selected tags
-            let indexForDell = -1;
-            for (let i = 0; i < selectedTags.length; i++) {
-              indexForDell = resultTags.indexOf(selectedTags[i]);
-              if (indexForDell !== -1) {
-                resultTags.splice(indexForDell, 1);
-                indexForDell = -1;
-              }
+    clearTimeout(this.timerId);
+    this.timerId = setTimeout(
+      function() {
+        if (this.location === '/students') {
+          getTagsByString(undefined, true).then(tags => {
+            updateTags(tags);
+          });
+          getStudentsSearchDataByPage();
+        } else if (this.location === '/projects') {
+          this.previewData = getProjectsSearchPreview();
+        }
+        let updateTags = tags => {
+          let selectedTags = this.props.state.search.searchSelectedTags;
+          // Copy array
+          let resultTags = tags.slice(0);
+          // Remove elements matching with the existing selected tags
+          let indexForDell = -1;
+          for (let i = 0; i < selectedTags.length; i++) {
+            indexForDell = resultTags.indexOf(selectedTags[i]);
+            if (indexForDell !== -1) {
+              resultTags.splice(indexForDell, 1);
+              indexForDell = -1;
             }
-            // Update tags
-            this.props.updateSearchTags(resultTags);
-            this.timeout = false;
-          };
-        }.bind(this),
-        this.timeBetweenRequests
-      );
-    }
+          }
+          // Update tags
+          this.props.updateSearchTags(resultTags);
+        };
+      }.bind(this),
+      this.delayTimer
+    );
+
+    // let str = e.target.value;
+    // this.props.changeSearchString(str);
+    // if (str === '' && this.props.state.search.searchSelectedTags.length === 0) {
+    //   this.props.updateSearchData([]);
+    //   this.getPopularTags();
+    // }
+    // if (this.timeout === false && !(str === '' && this.props.state.search.searchSelectedTags.length === 0)) {
+    //   this.timeout = true;
+    //   setTimeout(
+    //     function() {
+    //       // Get data
+    //       if (this.location === '/students') {
+    //         getTagsByString(undefined, true).then(tags => {
+    //           updateTags(tags);
+    //         });
+    //         getStudentsSearchDataByPage();
+    //       } else if (this.location === '/projects') {
+    //         this.previewData = getProjectsSearchPreview();
+    //       }
+    //       let updateTags = tags => {
+    //         let selectedTags = this.props.state.search.searchSelectedTags;
+    //         // Copy array
+    //         let resultTags = tags.slice(0);
+    //         // Remove elements matching with the existing selected tags
+    //         let indexForDell = -1;
+    //         for (let i = 0; i < selectedTags.length; i++) {
+    //           indexForDell = resultTags.indexOf(selectedTags[i]);
+    //           if (indexForDell !== -1) {
+    //             resultTags.splice(indexForDell, 1);
+    //             indexForDell = -1;
+    //           }
+    //         }
+    //         // Update tags
+    //         this.props.updateSearchTags(resultTags);
+    //         this.timeout = false;
+    //       };
+    //     }.bind(this),
+    //     this.timeBetweenRequests
+    //   );
+    // }
   }
 
   render() {
