@@ -3,7 +3,6 @@
 }
 
 .save-button {
-  margin: 0 !important;
   padding: 12px !important;
   background-color: #b42532;
   color: #fff;
@@ -48,7 +47,9 @@
 }
 
 .icon-link {
-  margin: -2px 0 2px 5px !important;
+  position: relative;
+  margin-left: 5px !important;
+  top: -2px;
   height: 48px;
   width: 48px;
   text-align: center !important;
@@ -68,7 +69,8 @@
 
 .icon-link:hover {
   box-shadow: 0 2px 0 0 #2d3ea8;
-  margin: -4px 0 4px 5px !important;
+  margin-left: 5px !important;
+  top: -4px;
 }
 
 .icon-link:focus {
@@ -87,6 +89,10 @@
 
 .color-grey {
   color: #7a7a7a;
+}
+
+.relative {
+  position: relative;
 }
 
 .full-width {
@@ -574,6 +580,7 @@ input[type='submit'],
 input[type='button'],
 button,
 .button {
+  position: relative;
   height: 48px;
   font-size: 24px;
   border-radius: 3px;
@@ -588,14 +595,14 @@ input[type='button']:hover,
 button:hover,
 .button:hover {
   box-shadow: 0 2px 0 0 #2d3ea8;
-  margin: -2px 0 2px 0;
+  top: -2px;
 }
 input[type='submit'].no-hover:hover,
 input[type='button'].no-hover:hover,
 button.no-hover:hover,
 .button.no-hover:hover {
   box-shadow: none;
-  margin: 0;
+  top: 0;
 }
 
 input[type='text'],
