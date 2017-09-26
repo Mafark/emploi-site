@@ -12,7 +12,11 @@
 }
 
 .tag-input {
+  background: transparent;
+  color: #fff;
   width: 150px;
+  min-width: 50px;
+  max-width: 300px;
   border-width: 0px !important;
   border-style: initial !important;
   border-color: initial !important;

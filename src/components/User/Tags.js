@@ -14,7 +14,7 @@ class Tags extends Component {
 
   setInitialState() {
     this.setState({
-      tags: this.props.user.tags
+      tags: this.props.user.tags.slice(0)
     });
     console.log('set' + this.props.user.tags);
   }
@@ -53,12 +53,20 @@ class Tags extends Component {
             {this.state.tags.map((tag, index) => {
               return (
                 <span className={'tag circle small-bg ' + this.props.editClass} key={index}>
-                  <input
-                    className="small-bg tag-input"
-                    onChange={this.changeTag.bind(this, tag)}
-                    disabled={!this.props.editing}
-                    value={tag}
-                  />
+                  {(() => {
+                    return (
+                      <input
+                        className="tag-input"
+                        style={{ width: (tag.length + 3) * 11 + 'px' }}
+                        onChange={this.changeTag.bind(this, tag)}
+                        onKeyUp={e => {
+                          e.target.style.width = (e.target.value.length + 3) * 11 + 'px';
+                        }}
+                        disabled={!this.props.editing}
+                        value={tag}
+                      />
+                    );
+                  })()}
                   {this.props.editing ? (
                     <i
                       onClick={this.deleteTag.bind(this, tag)}
