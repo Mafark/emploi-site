@@ -56,6 +56,7 @@ class Tags extends Component {
                   <input
                     className="small-bg tag-input"
                     onChange={this.changeTag.bind(this, tag)}
+                    disabled={!this.props.editing}
                     value={tag}
                   />
                   {this.props.editing ? (
