@@ -9,7 +9,7 @@ import {
   editProject,
   getCurrentUser
 } from '../../common/ajaxRequests';
-import { defaultImg } from '../../common/helpers';
+import { defaultImg, correctImgToSend } from '../../common/helpers';
 import Validation from 'react-validation';
 
 class EditProjectPage extends Component {
@@ -76,9 +76,7 @@ class EditProjectPage extends Component {
     tags = this.form.components.tags.state.value.split(',').map(tag => {
       return tag.trim();
     });
-    if (this.state.project.avatar === '/img/avatar.png') {
-      this.state.project.avatar = null;
-    }
+    this.state.project.avatar = correctImgToSend(this.state.project.avatar);
     let newProject = {
       avatar: this.state.project.avatar,
       name: this.form.components.name.state.value,
@@ -126,7 +124,7 @@ class EditProjectPage extends Component {
               ref={form => {
                 this.form = form;
               }}>
-              {!this.props.route.mode === 'create' ? (
+              {this.props.route.mode !== 'create' ? (
                 <div className="small-12 center columns">
                   <div style={{ width: '300px' }} className="img-mask auto-img circle border">
                     <img

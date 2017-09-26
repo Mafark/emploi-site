@@ -4,6 +4,7 @@ import { imgUrl, editUser, uploadFile, editTags } from '../../common/ajaxRequest
 import Tags from './Tags';
 import Organisations from './Organizations';
 import { userData } from '../../actionCreators';
+import { correctImgToSend } from '../../common/helpers.js';
 
 class Information extends Component {
   constructor(props) {
@@ -142,11 +143,7 @@ class Information extends Component {
           }
         ]
       });
-      if (newUser.avatar === '/img/avatar.png') {
-        newUser.avatar = null;
-      } else {
-        newUser.avatar = newUser.avatar.split(imgUrl)[1];
-      }
+      newUser.avatar = correctImgToSend(newUser.avatar);
       console.log(newUser);
       editUser(localStorage.getItem('token'), newUser).then(res => {
         this.props.updateUserData(res);

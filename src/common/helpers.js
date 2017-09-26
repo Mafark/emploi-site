@@ -22,3 +22,12 @@ export function correctImg(nameOfImg) {
     return imgUrl + nameOfImg;
   }
 }
+
+export function correctImgToSend(nameOfImg) {
+  if (nameOfImg === '/img/avatar.png') {
+    nameOfImg = null;
+  } else if (nameOfImg.indexOf(imgUrl) + 1) {
+    nameOfImg = nameOfImg.split(imgUrl)[1];
+  }
+  return nameOfImg;
+}
