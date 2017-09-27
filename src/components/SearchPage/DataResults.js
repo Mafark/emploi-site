@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
-import { getStudentsSearchDataByPage } from '../../common/ajaxRequests';
+import { getStudentsSearchDataByPage, getProjectsSearchDataByPage } from '../../common/ajaxRequests';
 import { Link } from 'react-router';
 
 class DataResults extends Component {
   constructor(props) {
     super(props);
     this.page = 1;
+    this.numberOfDataInPage = 10;
   }
 
   getNextPage() {
     if (this.props.location === '/students') {
-      this.props.state.search.searchData.length > 10 && this.props.state.search.searchData.length % 10 === 0
-        ? (this.page = this.props.state.search.searchData.length / 10)
+      this.props.state.search.searchData.length > this.numberOfDataInPage &&
+      this.props.state.search.searchData.length % this.numberOfDataInPage === 0
+        ? (this.page = this.props.state.search.searchData.length / this.numberOfDataInPage)
         : null;
       getStudentsSearchDataByPage(this.page);
     } else if (this.props.location === '/projects') {
-      console.log('Ждун');
+      this.props.state.search.searchData.length > this.numberOfDataInPage &&
+      this.props.state.search.searchData.length % this.numberOfDataInPage === 0
+        ? (this.page = this.props.state.search.searchData.length / this.numberOfDataInPage)
+        : null;
+      getProjectsSearchDataByPage(this.page);
     }
   }
 

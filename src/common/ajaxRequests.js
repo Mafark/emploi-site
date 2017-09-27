@@ -634,30 +634,36 @@ export const getStudentsSearchDataByPage = (page = 1, returnMod = false) => {
   });
 };
 
-export const getProjectsSearchPreview = () => {
-  // на пустую строку популярные тэги
-  /// //////DELETE
-  let mas = [];
-  for (let i = 0; i < 10; i++) {
-    mas = [
-      ...mas,
-      {
-        id: i,
-        name: 'JJJJJJJ',
-        surname: 'Ермагамбет',
-        avatar: '/img/avatar.jpg',
-        tags: ['Программирование', 'Веб-дизайн', 'Андроид']
-      }
-    ];
-  }
-  return {
-    tags: ['UUUUUUFFFFFF', 'Веб-дизайн', 'Андроид'],
-    data: mas
-  };
-  /// //////DELETE
-};
+export const getProjectsSearchDataByPage = (page = 1, returnMod = false) => {
+  let searchString = store.getState().search.searchString;
+  let selectedTags = store.getState().search.searchSelectedTags;
 
-export const getProjectsSearchDataByPage = () => {};
+  return fetch(
+    site +
+      '/projects/search/byPage?page=' +
+      page +
+      '&str=' +
+      searchString +
+      '&tags=' +
+      JSON.stringify(selectedTags),
+    {
+      method: 'GET'
+    }
+  ).then(function(response) {
+    return response.json().then(projects => {
+      for (let i = 0; i < projects.length; i++) {
+        projects[i].avatar = correctImg(projects[i].avatar);
+      }
+      if (!returnMod) {
+        store.dispatch(page === 1 ? search.updateData(projects) : search.pushData(projects));
+      } else {
+        return new Promise((resolve, reject) => {
+          resolve(projects);
+        });
+      }
+    });
+  });
+};
 
 export const getHomePageData = () => {
   fetch('http://jsonplaceholder.typicode.com/posts/1', {

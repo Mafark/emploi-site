@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getStudentsSearchDataByPage, getProjectsSearchPreview } from '../../common/ajaxRequests';
+import { getStudentsSearchDataByPage, getProjectsSearchDataByPage } from '../../common/ajaxRequests';
 import { search } from '../../actionCreators';
 
 class TagResults extends Component {
@@ -51,9 +51,9 @@ class TagResults extends Component {
   getPreviewData() {
     this.props.updateSearchSelectedTags(this.selectedTags);
     if (this.props.location === '/students') {
-      getStudentsSearchDataByPage().data;
+      getStudentsSearchDataByPage();
     } else if (this.props.location === '/projects') {
-      this.props.updateSearchData(getProjectsSearchPreview().data);
+      getProjectsSearchDataByPage();
     }
   }
 

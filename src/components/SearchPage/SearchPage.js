@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   getStudentsSearchDataByPage,
-  getProjectsSearchPreview,
+  getProjectsSearchDataByPage,
   getTagsByString
 } from '../../common/ajaxRequests';
 import Searcher from './Searcher';
@@ -49,7 +49,10 @@ class SearchPage extends Component {
           });
           getStudentsSearchDataByPage();
         } else if (this.location === '/projects') {
-          this.previewData = getProjectsSearchPreview();
+          getTagsByString(undefined, true).then(tags => {
+            updateTags(tags);
+          });
+          getProjectsSearchDataByPage();
         }
         let updateTags = tags => {
           let selectedTags = this.props.state.search.searchSelectedTags;

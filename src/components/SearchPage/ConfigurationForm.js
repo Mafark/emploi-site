@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getStudentsSearchDataByPage, getProjectsSearchPreview } from '../../common/ajaxRequests';
+import { getStudentsSearchDataByPage, getProjectsSearchDataByPage } from '../../common/ajaxRequests';
 import { search } from '../../actionCreators';
 
 class ConfigurationForm extends Component {
@@ -8,8 +8,8 @@ class ConfigurationForm extends Component {
     super(props);
     this.config = {
       course: '1',
-      institute: 'any',
-      interests: 'any'
+      institute: 'any'
+      // interests: 'any'
     };
   }
 
@@ -29,7 +29,7 @@ class ConfigurationForm extends Component {
     if (this.props.location === '/students') {
       getStudentsSearchDataByPage();
     } else if (this.props.location === '/projects') {
-      this.props.updateSearchData(getProjectsSearchPreview().data);
+      getProjectsSearchDataByPage();
     }
   }
 
