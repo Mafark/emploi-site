@@ -128,17 +128,19 @@ class SearchPage extends Component {
           <div className="content row">
             <Searcher getPreview={this.getPreview.bind(this)} location={this.location} />
             <div className="space-2 small-8 large-0 columns left" />
-            <div className="small-12 medium-12 large-4 columns large-padding-left right">
-              <div className="block shadow-1 small-12 columns">
-                <ConfigurationForm location={this.location} />
+            {this.location === '/students' ? (
+              <div className="small-12 medium-12 large-4 columns large-padding-left right">
+                <div className="block shadow-1 small-12 columns">
+                  <ConfigurationForm location={this.location} />
+                </div>
               </div>
-            </div>
+            ) : null}
             <div className="space-2 small-8 columns left" />
-            <div className="small-12 medium-12 large-8 columns large-padding-right left">
+            <div className={"small-12 medium-12 columns large-padding-right left " + (this.location === '/students' ? "large-8": "large-12")}>
               <TagResults location={this.location} />
             </div>
-            <div className="small-12 medium-12 large-8 space-2 columns large-padding-right left" />
-            <div className="small-12 medium-12 large-8 columns large-padding-right left">
+            <div className={"small-12 medium-12 space-2 columns large-padding-right left " + (this.location === '/students' ? "large-8": "large-12")}/>
+            <div className={"small-12 medium-12 columns large-padding-right left "+ (this.location === '/students' ? "large-8": "large-12")}>
               <DataResults location={this.location} />
             </div>
           </div>
