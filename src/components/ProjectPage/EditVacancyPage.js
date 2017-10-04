@@ -74,28 +74,31 @@ class EditProjectPage extends Component {
               ref={form => {
                 this.form = form;
               }}>
+              <label className="font-size-20">Название вакансии:</label>
               <div>
                 <Validation.components.Input
                   type="text"
                   className="small-12 columns property-input edit full-width"
                   value={this.props.route.mode !== 'create' ? this.state.vacancy.profession : ''}
-                  placeholder="Название вакансии"
+                  placeholder="Дизайнер"
                   name="profession"
                   validations={['isStr', 'required']}
                 />
               </div>
               <div className="space-2 small-12 columns" />
+              <label className="font-size-20">Описание вакансии:</label>
               <Validation.components.Textarea
                 className="description text-center small-12 columns"
                 value={this.props.route.mode !== 'create' ? this.state.vacancy.description : ''}
-                placeholder="Описание вакансии"
+                placeholder="На вакансию нужен человек..."
                 name="description"
                 validations={[]}
               />
+              <label className="font-size-20">Ваши теги (через запятую):</label>
               <Validation.components.Textarea
                 className="description text-center small-12 columns"
                 value={this.props.route.mode !== 'create' ? this.state.vacancy.tags.join(', ') : ''}
-                placeholder="Ваши теги (через запятую). Например: программирование, дизайн"
+                placeholder="Программирование, Дизайн"
                 name="tags"
                 validations={[]}
               />

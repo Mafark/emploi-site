@@ -108,6 +108,16 @@
   float: none !important;
 }
 
+.transition-zero {
+  -webkit-transition: 0s;
+  -moz-transition: 0s;
+  transition: 0s;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
 .example-appear {
   opacity: 0.01;
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -574,7 +584,7 @@ label b {
   text-align: center;
 }
 .text-left {
-  text-align: left;
+  text-align: left !important;
 }
 .text-black {
   color: #333 !important;
@@ -1119,7 +1129,8 @@ header {
 }
 
 .project h2 {
-  margin: -8px 0 0 0;
+  /* margin: -8px 0 0 0; */
+  margin: 0px 0 0 0;
 }
 
 .project a {
