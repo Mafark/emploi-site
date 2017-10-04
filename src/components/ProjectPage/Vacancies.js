@@ -88,7 +88,6 @@ class Vacancies extends Component {
                   <div key={index} className="block project shadow-1 small-12 columns row">
                     <div className="small-12 columns">
                       <div className="">
-                        <h2 className=" no-padding left">{unit.profession}</h2>
                         {this.props.creator ? (
                           <div className="inline right nowrap">
                             <span className="right">
@@ -103,6 +102,7 @@ class Vacancies extends Component {
                             </span>
                           </div>
                         ) : null}
+                        <h2 className=" no-padding left">{unit.profession}</h2>
                       </div>
                       <Link
                         to={site + '/users/' + unit.member.id}
@@ -135,10 +135,6 @@ class Vacancies extends Component {
                     key={index}
                     className="block project shadow-1 small-12 columns row border-dashed transparent no-shadow">
                     <div className="small-12 columns">
-                      <h2 className="no-padding left">{unit.profession}</h2>
-                      {/* <a href="#" className="small-12 medium-6 nowrap no-padding columns">
-                            Нажмите чтобы занять место
-                          </a> */}
                       {this.props.creator ? (
                         <div className="inline right nowrap">
                           <span className="right">
@@ -153,6 +149,10 @@ class Vacancies extends Component {
                           </span>
                         </div>
                       ) : null}
+                      <h2 className="no-padding left">{unit.profession}</h2>
+                      {/* <a href="#" className="small-12 medium-6 nowrap no-padding columns">
+                            Нажмите чтобы занять место
+                          </a> */}
                     </div>
                     {this.props.creator ? (
                       <div className="small-12 columns">
