@@ -117,7 +117,7 @@ class Vacancies extends Component {
                           <span
                             className="icon-link icon-link__small inline"
                             onClick={this.deleteMember.bind(this, unit)}>
-                            <i className="material-icons">delete</i>
+                            Снять
                           </span>
                         ) : null}
                       </Link>
@@ -172,18 +172,24 @@ class Vacancies extends Component {
                     </div>
                     {this.props.creator ? (
                       <div className="small-12 columns">
-                        <div className="right">
-                          {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
-                          <input
-                            className="small-9 medium-10 large-11 columns"
-                            value={unit.vacancyLink}
-                            placeholder="Получить ссылку на вакансию"
-                            type="text"
-                          />
+                        <div className="space-2 small-12 medium-rm large-rm columns" />
+                        {this.state.preloader ? <div>ПРЕЛОАДЕР</div> : null}
+                        <input
+                          className="small-12 medium-7 large-7 columns"
+                          value={unit.vacancyLink}
+                          placeholder="Получить ссылку на вакансию"
+                          type="text"
+                        />
+                        <div className="inline right small-12 medium-5 large-5">
                           <button
-                            className="icon-link small-9 medium-10 large-11 columns"
+                            className="icon-link left icon-link_no-top"
                             onClick={this.generateLink.bind(this, unit.id)}>
                             <i className="material-icons">link</i>
+                          </button>
+                          <button
+                            className="icon-link right icon-link_no-top"
+                            onClick={this.generateLink.bind(this, unit.id)}>
+                            Пригласить
                           </button>
                         </div>
                       </div>

@@ -52,10 +52,11 @@
 
 .icon-link {
   position: relative;
+  padding: 0 5px 0 5px;
   margin-left: 5px !important;
   top: -2px;
   height: 48px;
-  width: 48px;
+  min-width: 48px;
   text-align: center !important;
   vertical-align: middle;
   border-radius: 3px;
@@ -64,6 +65,10 @@
   background-image: radial-gradient(50% 50%, #4397d5 50%, #4487cc 100%);
   color: #fff;
   cursor: pointer;
+}
+
+.icon-link_no-top {
+  top: 0 !important;
 }
 
 .icon-link .material-icons {
@@ -76,6 +81,9 @@
   margin-left: 5px !important;
   top: -4px;
 }
+.icon-link_no-top:hover {
+  top: -2px !important;
+}
 
 .icon-link:focus {
   outline: -webkit-focus-ring-color auto 5px;
@@ -83,7 +91,7 @@
 
 .icon-link__small {
   height: 30px;
-  width: 30px;
+  min-width: 30px;
   line-height: 30px;
 }
 
