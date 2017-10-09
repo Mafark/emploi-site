@@ -10,7 +10,7 @@ import ProfilePage from './components/User/ProfilePage';
 import ProjectPage from './components/ProjectPage/ProjectPage';
 import EditProjectPage from './components/ProjectPage/EditProjectPage';
 import EditVacancyPage from './components/ProjectPage/EditVacancyPage';
-import applyToVacancy from './components/ProjectPage/applyToVacancy';
+import ApplyToVacancyByToken from './components/ProjectPage/ApplyToVacancyByToken';
 import ConfirmPage from './components/FormPage/ConfirmPage';
 import StudentsSearcherPage from './components/SearchPage/StudentsSearcher';
 import ProjectsSearcherPage from './components/SearchPage/ProjectsSearcher';
@@ -36,7 +36,7 @@ ReactDOM.render(
         <Route path="project/create" mode="create" component={EditProjectPage} />
         <Route path="projects/:project/vacancy/:vacancy/edit" mode="edit" component={EditVacancyPage} />
         <Route path="projects/:project/vacancy/create" mode="create" component={EditVacancyPage} />
-        <Route path="apply/vacancy/:token" component={applyToVacancy} />
+        <Route path="apply/vacancy/:token" component={ApplyToVacancyByToken} />
         <Route path="*" component={NotFound} />
       </Route>
     </Router>

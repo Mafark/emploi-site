@@ -506,12 +506,15 @@ export const getVacancyLink = (projectID, vacancyID) => {
   });
 };
 
-export const applyToVacancy = (projectID, vacancyID) => {
+export const applyToVacancy = (projectID, vacancyID, message) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/apply', {
     method: 'POST',
     headers: {
       Authorization: 'Basic ' + localStorage.getItem('token')
-    }
+    },
+    body: JSON.stringify({
+      message: message ? message : null
+    })
   }).then(function(response) {
     console.log(response);
   });

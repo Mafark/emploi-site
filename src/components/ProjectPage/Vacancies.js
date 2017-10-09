@@ -62,6 +62,11 @@ class Vacancies extends Component {
     });
   }
 
+  handleApplyToVacancy(vacancy) {
+    let message = prompt('Вы хотите занять эту вакансию. Напишите комментарий к письму.', '');
+    applyToVacancy(this.projectID, vacancy.id, message);
+  }
+
   preloader(value) {
     this.setState({
       preloader: value
@@ -146,6 +151,20 @@ class Vacancies extends Component {
                               to={'/projects/' + this.projectID + '/vacancy/' + unit.id + '/edit'}>
                               <i className="material-icons">edit</i>
                             </Link>
+                          </span>
+                        </div>
+                      ) : null}
+                      {
+                        //this.props.user.id && !this.props.creator ? (
+                      }
+                      {!this.props.creator ? (
+                        <div className="inline right nowrap">
+                          <span className="right">
+                            <button
+                              className="icon-link"
+                              onClick={this.handleApplyToVacancy.bind(this, unit)}>
+                              <i className="material-icons">input</i>
+                            </button>
                           </span>
                         </div>
                       ) : null}

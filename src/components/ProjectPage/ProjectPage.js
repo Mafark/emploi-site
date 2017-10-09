@@ -81,6 +81,7 @@ class ProfilePage extends Component {
             />
             <div className="space-4 small-12 columns" />
             <Vacancies
+              user={this.props.state.userData}
               creator={this.state.creator}
               projectID={this.projectID}
               team={this.state.project.team}
