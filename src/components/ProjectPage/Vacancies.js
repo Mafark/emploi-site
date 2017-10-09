@@ -154,10 +154,7 @@ class Vacancies extends Component {
                           </span>
                         </div>
                       ) : null}
-                      {
-                        //this.props.user.id && !this.props.creator ? (
-                      }
-                      {!this.props.creator ? (
+                      {this.props.user.id && !this.props.creator ? (
                         <div className="inline right nowrap">
                           <span className="right">
                             <button
