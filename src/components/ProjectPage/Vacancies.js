@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import {
   site,
   deleteVacancy as delVacancy,
@@ -65,6 +65,10 @@ class Vacancies extends Component {
   handleApplyToVacancy(vacancy) {
     let message = prompt('Вы хотите занять эту вакансию. Напишите комментарий к письму.', '');
     applyToVacancy(this.projectID, vacancy.id, message);
+  }
+
+  handleSearchForJob(vacancy) {
+    browserHistory.push('/');
   }
 
   preloader(value) {
@@ -186,11 +190,14 @@ class Vacancies extends Component {
                             onClick={this.generateLink.bind(this, unit.id)}>
                             <i className="material-icons">link</i>
                           </button>
-                          <button
-                            className="icon-link right icon-link_no-top"
-                            onClick={this.generateLink.bind(this, unit.id)}>
+                          <Link
+                            to={{
+                              pathname: '/students',
+                              query: { project: this.projectID, vacancy: unit.id, tags: [unit.tags] }
+                            }}
+                            className="icon-link right icon-link_no-top">
                             Пригласить
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     ) : null}

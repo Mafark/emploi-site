@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
-import { getStudentsSearchDataByPage, getProjectsSearchDataByPage } from '../../common/ajaxRequests';
+import {
+  getStudentsSearchDataByPage,
+  getProjectsSearchDataByPage,
+  inviteToVacancy
+} from '../../common/ajaxRequests';
 import { Link } from 'react-router';
 
 class DataResults extends Component {
@@ -9,6 +13,11 @@ class DataResults extends Component {
     super(props);
     this.page = 1;
     this.numberOfDataInPage = 10;
+    this.searchForVacancy =
+      this.props.dataForVacancy &&
+      this.props.userData.portfolio.filter(project => {
+        return parseInt(this.props.dataForVacancy.project) === project.id;
+      }).length !== 0;
   }
 
   getNextPage() {
@@ -27,24 +36,13 @@ class DataResults extends Component {
     }
   }
 
+  sendInvite(user, e) {
+    e.preventDefault();
+    e.currentTarget.children[0].innerHTML = '&#xE876;';
+    inviteToVacancy(this.props.dataForVacancy.project, this.props.dataForVacancy.vacancy, user.id);
+  }
+
   render() {
-    /*  if (
-      this.props.state.search.searchString === '' &&
-      this.props.state.search.searchSelectedTags.length === 0
-    ) {
-      return (
-        <div className="search-units block shadow-1 small-12 columns">
-          <div>
-            <div className="space-3 small-12 columns" />
-            <div className="small-12 columns">
-              <h2 className="text-center disabled thin">Здесь будут результаты поиска</h2>
-            </div>
-            <div className="space-3 small-12 columns" />
-          </div>
-        </div>
-      );
-    } else
-    */
     if (this.props.location === '/students') {
       return (
         <div className="search-units block shadow-1 small-12 columns">
@@ -61,7 +59,20 @@ class DataResults extends Component {
                     className="medium-img circle border"
                   />
                   <div className="small-12 columns">
-                    <p>{item.name + ' ' + item.surname}</p>
+                    <p>
+                      {item.name + ' ' + item.surname}
+                      {this.searchForVacancy ? (
+                        <div className="inline right nowrap">
+                          <span className="right">
+                            <button
+                              className="icon-link icon-link__small"
+                              onClick={this.sendInvite.bind(this, item)}>
+                              <i className="material-icons">&#xE7FE;</i>
+                            </button>
+                          </span>
+                        </div>
+                      ) : null}
+                    </p>
                     {item.tags.map((tag, index) => {
                       return (
                         <div key={index} className="tag circle small-bg">

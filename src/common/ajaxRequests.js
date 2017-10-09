@@ -519,6 +519,19 @@ export const applyToVacancy = (projectID, vacancyID, message) => {
     console.log(response);
   });
 };
+export const inviteToVacancy = (projectID, vacancyID, userID) => {
+  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/invite', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + localStorage.getItem('token')
+    },
+    body: JSON.stringify({
+      userId: userID
+    })
+  }).then(function(response) {
+    console.log(response);
+  });
+};
 
 export const applyToVacancyByToken = inviteToken => {
   return fetch(site + '/vacancies/applyByToken', {

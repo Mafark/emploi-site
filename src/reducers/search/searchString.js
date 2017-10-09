@@ -1,6 +1,9 @@
-import {search} from "../../actionCreators";
-import {createReducer} from "redux-act";
+import { search } from '../../actionCreators';
+import { createReducer } from 'redux-act';
 
-export default createReducer({
+export default createReducer(
+  {
     [search.updateString]: (state, payload) => payload
-}, '');
+  },
+  ''
+);

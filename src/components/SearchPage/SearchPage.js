@@ -22,12 +22,22 @@ class SearchPage extends Component {
     // this.timeBetweenRequests = 700;
     this.timerId;
     this.delayForTimer = 1000;
+    this.dataForVacancy = null;
   }
 
   componentWillMount() {
     if (this.props.state.search.searchTags !== [] || this.props.state.search.searchSelectedTags !== []) {
       this.resetData();
     }
+    if (
+      this.props.location.query.project &&
+      this.props.location.query.vacancy &&
+      this.props.location.query.tags
+    ) {
+      this.dataForVacancy = Object.assign({}, this.props.location.query);
+      this.props.updateSearchSelectedTags(this.dataForVacancy);
+    }
+
     this.getPopularTags();
   }
 
@@ -73,47 +83,6 @@ class SearchPage extends Component {
       }.bind(this),
       this.delayForTimer
     );
-
-    // let str = e.target.value;
-    // this.props.changeSearchString(str);
-    // if (str === '' && this.props.state.search.searchSelectedTags.length === 0) {
-    //   this.props.updateSearchData([]);
-    //   this.getPopularTags();
-    // }
-    // if (this.timeout === false && !(str === '' && this.props.state.search.searchSelectedTags.length === 0)) {
-    //   this.timeout = true;
-    //   setTimeout(
-    //     function() {
-    //       // Get data
-    //       if (this.location === '/students') {
-    //         getTagsByString(undefined, true).then(tags => {
-    //           updateTags(tags);
-    //         });
-    //         getStudentsSearchDataByPage();
-    //       } else if (this.location === '/projects') {
-    //         this.previewData = getProjectsSearchPreview();
-    //       }
-    //       let updateTags = tags => {
-    //         let selectedTags = this.props.state.search.searchSelectedTags;
-    //         // Copy array
-    //         let resultTags = tags.slice(0);
-    //         // Remove elements matching with the existing selected tags
-    //         let indexForDell = -1;
-    //         for (let i = 0; i < selectedTags.length; i++) {
-    //           indexForDell = resultTags.indexOf(selectedTags[i]);
-    //           if (indexForDell !== -1) {
-    //             resultTags.splice(indexForDell, 1);
-    //             indexForDell = -1;
-    //           }
-    //         }
-    //         // Update tags
-    //         this.props.updateSearchTags(resultTags);
-    //         this.timeout = false;
-    //       };
-    //     }.bind(this),
-    //     this.timeBetweenRequests
-    //   );
-    // }
   }
 
   render() {
@@ -136,12 +105,29 @@ class SearchPage extends Component {
               </div>
             ) : null}
             <div className="space-2 small-8 columns left" />
-            <div className={"small-12 medium-12 columns large-padding-right left " + (this.location === '/students' ? "large-8": "large-12")}>
+            <div
+              className={
+                'small-12 medium-12 columns large-padding-right left ' +
+                (this.location === '/students' ? 'large-8' : 'large-12')
+              }>
               <TagResults location={this.location} />
             </div>
-            <div className={"small-12 medium-12 space-2 columns large-padding-right left " + (this.location === '/students' ? "large-8": "large-12")}/>
-            <div className={"small-12 medium-12 columns large-padding-right left "+ (this.location === '/students' ? "large-8": "large-12")}>
-              <DataResults location={this.location} />
+            <div
+              className={
+                'small-12 medium-12 space-2 columns large-padding-right left ' +
+                (this.location === '/students' ? 'large-8' : 'large-12')
+              }
+            />
+            <div
+              className={
+                'small-12 medium-12 columns large-padding-right left ' +
+                (this.location === '/students' ? 'large-8' : 'large-12')
+              }>
+              <DataResults
+                location={this.location}
+                dataForVacancy={this.dataForVacancy}
+                userData={this.props.state.userData}
+              />
             </div>
           </div>
         </ReactCSSTransitionGroup>
