@@ -91,54 +91,70 @@ class DataResults extends Component {
       );
     } else if (this.props.location === '/projects') {
       return (
-        <div className="block wide shadow-1 small-12 columns row">
-          <div className="space-1 small-3 medium-rm large-rm columns" />
-          <div className="small-12 medium-12 large-padding-left-3 columns">
-            <p>
-              <div className="small-12 medium-4 padding-right-3 columns small-no-padding">
-                <div className="space-1 small-2 medium-rm large-rm columns" />
-                <img
-                  src="./img/logo.png"
-                  className="small-8 medium-12 border columns no-padding margin-bottom"
-                  alt="LOD"
-                />
-                <div className="space-1 small-2 medium-rm large-rm columns" />
-              </div>
-              <div className="small-12 medium-8 large-padding-left-3 columns no-padding">
-                <h2 className="small-12 full-name small-text-center no-margin no-padding columns">
-                  Сайт лиги разработчиков
-                </h2>
-                <a href="#" className="small-12 small-text-center no-padding columns">
-                  Борис Вальдман
-                </a>
-              </div>
-              <div className="space-2 small-12 medium-8 columns" />
-              Реализовать свои приобретенные навыки или найти нужного человека себе в команду, в этом вам
-              поможет Emploi
-            </p>
+        <div>
+          <div className="block wide shadow-1 small-12 columns row">
+            {this.props.state.search.searchData.length === 0 ? (
+              <div className="color-grey center">Здесь будут результаты поиска</div>
+            ) : null}
+            {this.props.state.search.searchData.map((project, index) => {
+              return (
+                <Link to={'/projects/' + project.id} key={index}>
+                  <div className="space-1 small-3 medium-rm large-rm columns" />
+                  <div className="small-12 medium-12 large-padding-left-3 columns">
+                    <p>
+                      <div className="small-12 medium-4 padding-right-3 columns small-no-padding">
+                        <div className="space-1 small-2 medium-rm large-rm columns" />
+                        <img
+                          src={project.avatar}
+                          className="small-8 medium-12 border columns no-padding margin-bottom"
+                          alt="LOD"
+                        />
+                        <div className="space-1 small-2 medium-rm large-rm columns" />
+                      </div>
+                      <div className="small-12 medium-8 large-padding-left-3 columns no-padding">
+                        <h2 className="text-black small-12 full-name small-text-center no-margin no-padding columns">
+                          {project.name}
+                        </h2>
+                        <Link
+                          to={'/users/' + project.leader.id}
+                          className="small-12 small-text-center no-padding columns">
+                          {project.leader.name + ' ' + project.leader.surname}
+                        </Link>
+                      </div>
+                      <div className="text-black space-2 small-12 medium-8 columns" />
+                      <p className="text-black">{project.description}</p>
+                    </p>
+                  </div>
+                  <hr />
+                  <div className="space-2 small-12 columns" />
+                  <div className="small-12 large-padding-left-3 columns">
+                    {project.tags.map((tag, index) => {
+                      return (
+                        <div key={index} className="tag circle small-bg">
+                          {tag}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="small-12 columns no-padding">
+                    {project.team.map((unit, index) => {
+                      return unit.member ? (
+                        <div
+                          key={index}
+                          className="member small-6 medium-6 large-4 large-padding-left-3 columns end">
+                          <p className="role text-black">{unit.profession}</p>
+                          <Link to={'/users/' + unit.member.id} className="name">
+                            {unit.member.name + ' ' + unit.member.surname}
+                          </Link>
+                        </div>
+                      ) : null;
+                    })}
+                  </div>
+                </Link>
+              );
+            })}
+            <Waypoint onEnter={this.getNextPage.bind(this)} />
           </div>
-          <hr />
-          <div className="space-2 small-12 columns" />
-          <div className="small-12 large-padding-left-3 columns">
-            <div className="tag circle small-bg">Программирование</div>
-            <div className="tag circle small-bg">Дизайн</div>
-            <div className="tag circle small-bg">Экология</div>
-          </div>
-          <div className="small-12 columns no-padding">
-            <div className="member small-6 medium-6 large-4 large-padding-left-3 columns end">
-              <p className="role">Копатель</p>
-              <a href="#" className="name">
-                Жамбыл Ермагамбет
-              </a>
-            </div>
-            <div className="member small-6 medium-6 large-4 large-padding-left-3 columns end">
-              <p className="role">Тимлид</p>
-              <a href="#" className="name">
-                Борис Вальдман
-              </a>
-            </div>
-          </div>
-          <Waypoint onEnter={this.getNextPage.bind(this)} />
         </div>
       );
     }

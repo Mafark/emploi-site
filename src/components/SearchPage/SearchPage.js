@@ -23,6 +23,31 @@ class SearchPage extends Component {
     this.timerId;
     this.delayForTimer = 1000;
     this.dataForVacancy = null;
+    this.la = {
+      id: 1,
+      avatar: 'p5f4rrtd.jpg',
+      leader: { id: 1, name: 'Василийй', surname: 'Пушкин', avatar: '1llfnoeh.jpg' },
+      name: 'ПРоектик',
+      description: 'Описаниекакое-то  jdf kjdf kjdfkjdfjk df df kjdf',
+      tags: ['лох', 'хуй', 'пидор', 'да'],
+      team: [
+        {
+          id: 1,
+          member: { id: 1, name: 'Василийй', surname: 'Пушкин', avatar: '1llfnoeh.jpg' },
+          profession: 'Крутая вакансия',
+          description:
+            'Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблон',
+          tags: ['хз', 'ча', 'чо', 'чу']
+        },
+        {
+          id: 2,
+          member: null,
+          profession: 'Ептать',
+          description: 'Хуй пизда залупа лала лоло',
+          tags: ['фыдво', 'asc', 'sdf']
+        }
+      ]
+    };
   }
 
   componentWillMount() {
