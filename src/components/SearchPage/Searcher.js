@@ -12,7 +12,11 @@ class Searcher extends Component {
       ? (this.searchPlaceholder = 'Начните вводить имя')
       : (this.searchPlaceholder = 'Начните вводить название проекта');
     return (
-      <div className={"small-12 medium-12 columns large-padding-right " + (this.props.location === '/students' ? "large-8": "large-12")}>
+      <div
+        className={
+          'small-12 medium-12 columns large-padding-right ' +
+          (this.props.location === '/students' ? 'large-8' : 'large-12')
+        }>
         <div className="block shadow-1 small-12 columns no-padding">
           <input
             onKeyUp={this.props.getPreview}
@@ -21,7 +25,7 @@ class Searcher extends Component {
             placeholder={this.searchPlaceholder}
           />
           <button className="search-button center">
-            <i className="material-icons small">search</i>
+            <i className="material-icons small">&#xE8B6;</i>
           </button>
         </div>
       </div>

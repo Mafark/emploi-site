@@ -48,6 +48,12 @@ class TagResults extends Component {
     this.getPreviewData();
   }
 
+  deleteAllSelectedTags() {
+    this.props.updateSearchTags([...this.selectedTags, ...this.props.state.search.searchTags]);
+    this.selectedTags = [];
+    this.getPreviewData();
+  }
+
   getPreviewData() {
     this.props.updateSearchSelectedTags(this.selectedTags);
     if (this.props.location === '/students') {
@@ -64,7 +70,13 @@ class TagResults extends Component {
           <div className="small-12 columns">
             {this.props.state.search.searchTags.length === 0 && this.selectedTags.length === 0 ? (
               <div className="color-grey center">Здесь будут предложенные теги</div>
-            ) : null}
+            ) : (
+              <span
+                className="icon-link icon-link__small inline tag"
+                onClick={this.deleteAllSelectedTags.bind(this)}>
+                Очистить
+              </span>
+            )}
             {this.selectedTags.map((tag, index) => {
               return (
                 <div
@@ -72,7 +84,7 @@ class TagResults extends Component {
                   onClick={this.deleteSelectedTag.bind(this, tag)}
                   className="tag activated circle small-bg">
                   {tag}
-                  <i className="material-icons">close</i>
+                  <i className="material-icons">&#xE5CD;</i>
                 </div>
               );
             })}
