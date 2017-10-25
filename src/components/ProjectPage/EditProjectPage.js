@@ -170,11 +170,9 @@ class EditProjectPage extends Component {
               <Validation.components.Button
                 type="submit"
                 onClick={
-                  this.props.route.mode === 'create' ? (
-                    this.createProject.bind(this)
-                  ) : (
-                    this.editProject.bind(this)
-                  )
+                  this.props.route.mode === 'create'
+                    ? this.createProject.bind(this)
+                    : this.editProject.bind(this)
                 }
                 className="float-none small-bg small-12 medium-4 medium-offset-4 large-4 large-offset-4 columns">
                 Отправить

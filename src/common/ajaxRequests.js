@@ -507,9 +507,10 @@ export const getVacancyLink = (projectID, vacancyID) => {
 };
 
 export const applyToVacancy = (projectID, vacancyID, message) => {
-  return fetch(site + '/project/' + projectID + '/vacancies/' + vacancyID + '/apply', {
+  return fetch(site + '/project/' + projectID + '/vacancy/' + vacancyID + '/apply', {
     method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: 'Basic ' + localStorage.getItem('token')
     },
     body: JSON.stringify({
@@ -523,6 +524,7 @@ export const inviteToVacancy = (projectID, vacancyID, userID) => {
   return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/invite', {
     method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: 'Basic ' + localStorage.getItem('token')
     },
     body: JSON.stringify({

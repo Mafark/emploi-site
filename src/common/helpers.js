@@ -15,7 +15,7 @@ export function logOut(e) {
   }
 }
 
-export function correctImg(nameOfImg) {
+export function correctImg(nameOfImg = '') {
   if (nameOfImg === null || !nameOfImg || nameOfImg === '') {
     return '/img/avatar.png';
   } else if (nameOfImg !== null || nameOfImg) {
@@ -23,10 +23,10 @@ export function correctImg(nameOfImg) {
   }
 }
 
-export function correctImgToSend(nameOfImg) {
+export function correctImgToSend(nameOfImg = '') {
   if (nameOfImg === '/img/avatar.png') {
     nameOfImg = null;
-  } else if (nameOfImg.indexOf(imgUrl) + 1) {
+  } else if (nameOfImg && nameOfImg.indexOf(imgUrl) + 1) {
     nameOfImg = nameOfImg.split(imgUrl)[1];
   }
   return nameOfImg;
