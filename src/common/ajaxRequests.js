@@ -603,11 +603,15 @@ export const getTagsByString = (str, returnMod = false) => {
     method: 'GET'
   }).then(function(response) {
     return response.json().then(res => {
+      let selectedTags = store.getState().search.searchSelectedTags;
+      let tags = res.tags.filter(tag => {
+        return selectedTags.indexOf(tag) === -1;
+      });
       if (!returnMod) {
-        store.dispatch(search.updateTags(res.tags));
+        store.dispatch(search.updateTags(tags));
       } else {
         return new Promise((resolve, reject) => {
-          resolve(res.tags);
+          resolve(tags);
         });
       }
     });
