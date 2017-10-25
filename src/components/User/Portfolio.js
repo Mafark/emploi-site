@@ -18,7 +18,7 @@ class Portfolio extends Component {
       return (
         <div className="small-12 center columns no-padding">
           <div className="projects transition small-12 medium-12 large-10">
-            {this.props.portfolio.length !== 0 ? (
+            {this.props.portfolio.length !== 0 || this.props.editing ? (
               <h2 className="small-12 text-center columns">
                 Портфолио{' '}
                 {this.props.editing ? (
@@ -37,18 +37,18 @@ class Portfolio extends Component {
                       <div className="small-6 medium-4 columns">
                         <img src={project.avatar} alt="img" />
                         <div className="small-rm">
-                          {project.team && project.team.length !== 0 && project.team.member ? (
-                            project.team.map((unit, index) => {
-                              return (
-                                <div key={index} className="member small-12 columns no-padding">
-                                  <p className="role">{unit.profession}</p>
-                                  <Link to={'/users/' + unit.member.id} className="name">
-                                    {unit.member.name + ' ' + unit.member.surname}
-                                  </Link>
-                                </div>
-                              );
-                            })
-                          ) : null}
+                          {project.team && project.team.length !== 0 && project.team.member
+                            ? project.team.map((unit, index) => {
+                                return (
+                                  <div key={index} className="member small-12 columns no-padding">
+                                    <p className="role">{unit.profession}</p>
+                                    <Link to={'/users/' + unit.member.id} className="name">
+                                      {unit.member.name + ' ' + unit.member.surname}
+                                    </Link>
+                                  </div>
+                                );
+                              })
+                            : null}
                         </div>
                       </div>
                       <div className="small-6 medium-8 columns">
@@ -63,18 +63,18 @@ class Portfolio extends Component {
                         </Link>
                       </div>
                       <div className="small-6 medium-rm large-rm columns">
-                        {project.team && project.team.length !== 0 && project.team.member ? (
-                          project.team.map((unit, index) => {
-                            return (
-                              <div key={index} className="member small-12 columns no-padding">
-                                <p className="role">{unit.profession}</p>
-                                <Link to={'/users/' + unit.member.id} className="name">
-                                  {unit.member.name + ' ' + unit.member.surname}
-                                </Link>
-                              </div>
-                            );
-                          })
-                        ) : null}
+                        {project.team && project.team.length !== 0 && project.team.member
+                          ? project.team.map((unit, index) => {
+                              return (
+                                <div key={index} className="member small-12 columns no-padding">
+                                  <p className="role">{unit.profession}</p>
+                                  <Link to={'/users/' + unit.member.id} className="name">
+                                    {unit.member.name + ' ' + unit.member.surname}
+                                  </Link>
+                                </div>
+                              );
+                            })
+                          : null}
                       </div>
                       <div className="small-12 medium-8 columns">
                         <p>{project.description}</p>
@@ -91,7 +91,9 @@ class Portfolio extends Component {
                     </span>
                   );
                 })
-              ) : null}
+              ) : (
+                <div className="color-grey center">Здесь будут ваши проекты</div>
+              )}
             </div>
           </div>
         </div>

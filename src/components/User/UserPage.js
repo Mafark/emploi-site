@@ -28,11 +28,7 @@ class UserPage extends Component {
           <div className="content row">
             <Information user={this.state.user} />
             <div className="space-4 small-12 columns" />
-            {(() => {
-              if (this.state.user.portfolio.length !== 0) {
-                return <Portfolio portfolio={this.state.user.portfolio} />;
-              }
-            })()}
+            <Portfolio portfolio={this.state.user.portfolio} />
           </div>
         </div>
       );
