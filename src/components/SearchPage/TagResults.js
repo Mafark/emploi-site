@@ -10,42 +10,47 @@ class TagResults extends Component {
   }
 
   componentWillMount() {
-    // On the projects page add selected tags from profile
+    // In the projects page add selected tags from profile
     if (this.props.location === '/projects') {
       let userDataTags = this.props.state.userData.tags;
       if (userDataTags) {
-        this.selectedTags = userDataTags;
+        this.selectedTags = this.selectedTags.concat(userDataTags);
       }
+    }
+
+    // When searching users for vacancy
+    if (this.props.state.search.searchSelectedTags) {
+      this.selectedTags = this.selectedTags.concat(this.props.state.search.searchSelectedTags);
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.state.search.searchSelectedTags) {
+      this.selectedTags = this.props.state.search.searchSelectedTags.concat();
     }
   }
 
   addSelectedTag(tag) {
-    let index = -1;
-    let tags = this.props.state.search.searchTags;
-    for (let i = 0; i < tags.length; i++) {
-      if (tags[i] === tag) {
-        index = i;
-      }
+    let tags = this.props.state.search.searchTags.concat();
+    let index = tags.indexOf(tag);
+
+    if (index !== -1) {
+      tags.splice(index, 1);
+      this.selectedTags.indexOf(tag) === -1 ? (this.selectedTags = [tag, ...this.selectedTags]) : null;
+      this.props.updateSearchTags(tags);
+      this.getPreviewData();
     }
-    let resultTag = tags[index];
-    tags.splice(index, 1);
-    this.selectedTags = [resultTag, ...this.selectedTags];
-    this.props.updateSearchTags(tags);
-    this.getPreviewData();
   }
 
   deleteSelectedTag(tag) {
-    let index = -1;
-    let tags = this.props.state.search.searchTags;
-    for (let i = 0; i < this.selectedTags.length; i++) {
-      if (this.selectedTags[i] === tag) {
-        index = i;
-      }
+    let tags = this.props.state.search.searchTags.concat();
+    let index = this.selectedTags.indexOf(tag);
+
+    if (index !== -1) {
+      this.selectedTags.splice(index, 1);
+      this.props.updateSearchTags([tag, ...tags]);
+      this.getPreviewData();
     }
-    let selectedTag = this.selectedTags[index];
-    this.selectedTags.splice(index, 1);
-    this.props.updateSearchTags([selectedTag, ...tags]);
-    this.getPreviewData();
   }
 
   deleteAllSelectedTags() {
