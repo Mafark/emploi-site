@@ -507,7 +507,7 @@ export const getVacancyLink = (projectID, vacancyID) => {
 };
 
 export const applyToVacancy = (projectID, vacancyID, message) => {
-  return fetch(site + '/projects/' + projectID + '/vacancies/' + vacancyID + '/apply', {
+  return fetch(site + '/project/' + projectID + '/vacancies/' + vacancyID + '/apply', {
     method: 'POST',
     headers: {
       Authorization: 'Basic ' + localStorage.getItem('token')
