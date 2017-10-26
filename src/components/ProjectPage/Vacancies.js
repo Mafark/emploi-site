@@ -94,7 +94,9 @@ class Vacancies extends Component {
               <div className="space-2 small-12 columns" />
               {this.state.team.map((unit, index) => {
                 return unit.member ? (
-                  <div key={index} className="block project shadow-1 small-12 columns row">
+                  <div
+                    key={index}
+                    className="block project shadow-1 small-12 columns row border-solid transparent no-shadow">
                     <div className="small-12 columns">
                       <div className="">
                         {this.props.creator ? (

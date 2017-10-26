@@ -412,6 +412,15 @@ body {
   border: 2px dashed #333;
   border-radius: 3px;
 }
+.border-solid {
+  border: 2px solid #979797;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+.border-solid:hover {
+  border: 2px solid #333;
+  border-radius: 3px;
+}
 .focus {
   outline: 3px solid #5182d7 !important;
 }
