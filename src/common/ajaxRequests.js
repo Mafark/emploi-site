@@ -279,7 +279,7 @@ export const getBestStudents = () => {
   let mas = [];
   for (let i = 0; i < 5; i++) {
     mas.push({
-      id: 79,
+      id: 1,
       name: 'Вася',
       surname: 'Пупкин',
       avatar: null

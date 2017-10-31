@@ -35,9 +35,7 @@ class Units extends Component {
                           alt={player.surname + ' ' + player.name}
                           className="small-img circle border"
                         />
-                        <p>
-                          {player.surname + ' ' + player.name}
-                        </p>
+                        <p>{player.surname + ' ' + player.name}</p>
                       </div>
                     </Link>
                     <hr />
