@@ -13,9 +13,11 @@ class Tags extends Component {
   }
 
   setInitialState() {
-    this.setState({
-      tags: this.props.user.tags.slice(0)
-    });
+    this.props.user.tags
+      ? this.setState({
+          tags: this.props.user.tags.slice(0)
+        })
+      : null;
     console.log('set' + this.props.user.tags);
   }
 
